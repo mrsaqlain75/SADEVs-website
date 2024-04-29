@@ -1,0 +1,307 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #E9F1FA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.pre-header{
+    background-color: #00abe4;
+    height:30px;
+    width:100%;
+}
+.pre-header p{
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    font-weight: bold;
+}
+.pre-header a{
+    text-decoration: none;
+    color:#1e395b;
+}
+header{
+    width:100%;
+    height:6.5vh;
+}
+header img{
+    width:200px;
+    padding:10px;
+    float:left;
+}
+
+/* dropdown here */
+
+header ul, li {
+    margin: 5px 0 ;
+    list-style-type: none;
+}
+
+/* Styling the main navigation menu */
+header .menu {
+    display: flex;
+    justify-content: flex-start;
+}
+
+header .menu li {
+    position: relative;
+}
+.focus{
+    margin-left: auto;
+}
+
+header .menu a {
+    display: block;
+    font-weight: bold;
+    padding: 10px;
+    color: #1e395b;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+header .menu a:hover {
+    background-color: #00abe4;
+    color:#E9F1FA;
+}
+
+/* Dropdown menu styles */
+header .dropdown-content {
+    display: none;
+    position: absolute;
+    padding:0;
+    margin:0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+header .dropdown-content a {
+    color: black;
+    background-color: white;
+    padding: 1vh 0.5vw;
+}
+
+header .dropdown-content a:hover {
+    background-color: #00abe4;
+}
+
+/* Show the dropdown menu on hover */
+header .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+/* Hero Section Starts Here  */
+.hero-section{
+    height:34vh;
+    display:flex;
+    flex-direction: column;
+    margin-top: 6vh;
+    align-items: center;
+    width:100%;
+}
+
+.hero-section p{
+    text-align: center;
+    font-size: 5vw;
+    font-family: Century Gothic;
+    color:#00abe4;
+}
+#search-text{
+    font-weight: bold;
+    color:#1e395b;
+    
+}
+#search-input{
+    width: 60vw;
+    height: 8vh;
+    padding: 5px;
+    color:#1e395b;
+    border:3px solid #1e395b;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #E9F1FA;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+#search-btn{
+    width:10vw;
+    height:6vh;
+    margin-top: 2.5vh;
+    background-color: #00abe4;
+    border:none;
+    border-radius:5px;
+    color:#E9F1FA;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    transition: color 0.3s;
+    box-shadow: 2px 2px 20px #00abe4;
+}
+#search-btn:hover{
+    background:#E9F1FA;
+    color:#00abe4;
+    border:3px solid #00abe4;
+}
+
+/* Services card starts here...*/
+.service-card{
+    width:95%;
+    height:55vh;
+    background-color: #00abe4;
+    margin:auto;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 16px #00abe4;
+    justify-content: center;
+    align-items: center;
+}
+
+#services{
+    text-align: center;
+    font-size: 4vw;
+    font-family: Century Gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+}
+.service-list{
+    width: 98%;
+    height: 75%;
+    display:flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.service{
+    width: 21%;
+    height: 95%;
+    background-color: #1e395b;
+    border-radius: 30px;
+    box-shadow: 2px 2px 8px #1e395b;
+    display:flex;
+    justify-content: center;
+    align-items: center;   
+    transition: background-color 0.3s;
+}
+.service p{
+    text-align: center;
+    font-size: 3vw;
+    font-family: Century Gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+    text-align: center;
+}
+.service:hover{
+    background-color: #11253d;
+}
+
+/*Courses Card Starts here...*/
+.course-card{
+    width:95%;
+    height:55vh;
+    background-color: #11253d;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 16px #1e395b;
+    justify-content: center;
+    margin-top:10vh;
+    align-items: center;
+}
+
+#services{
+    text-align: center;
+    font-size: 4vw;
+    font-family: Century Gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+}
+.service-list{
+    width: 98%;
+    height: 75%;
+    display:flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.course{
+    width: 21%;
+    height: 95%;
+    background-color: #00abe4;
+    border-radius: 30px;
+    box-shadow: 2px 2px 8px #00abe4;
+    display:flex;
+    justify-content: center;
+    align-items: center;   
+    transition: background-color 0.3s;
+}
+.course p{
+    text-align: center;
+    font-size: 3vw;
+    font-family: Century Gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+    text-align: center;
+}
+.course:hover{
+    background-color: #0298ca;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Extra large devices (large desktops, less than 1200px) */
+@media (max-width: 1199px) {
+
+    body{
+        font-size: 11px;
+    }
+}
+
+/* Large devices (desktops, less than 992px) */
+@media (max-width: 991px) {
+
+    body{
+        font-size: 10px;
+    }
+}
+
+/* Medium devices (tablets, less than 768px) */
+@media (max-width: 767px) {
+
+    header img{
+        float:none;
+        display:block;
+        margin:auto;
+    }
+    body{
+        font-size: 9px;
+    }
+}
+
+/* Small devices (phones, less than 576px) */
+@media (max-width: 575px) {
+    header{
+        height:12vh;
+    }
+    body{
+        font-size: 7px;
+    }
+}
