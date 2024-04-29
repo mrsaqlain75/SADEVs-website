@@ -132,6 +132,7 @@ header .dropdown:hover .dropdown-content {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
 }
 #search-btn{
     width:10vw;
@@ -143,7 +144,7 @@ header .dropdown:hover .dropdown-content {
     color:#E9F1FA;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.5vw;
     transition: background-color 0.3s;
     transition: color 0.3s;
     box-shadow: 2px 2px 20px #00abe4;
@@ -165,6 +166,7 @@ header .dropdown:hover .dropdown-content {
     flex-direction: column;
     box-shadow: 2px 2px 16px #00abe4;
     justify-content: center;
+    margin-top: 5vh;
     align-items: center;
 }
 
@@ -205,6 +207,12 @@ header .dropdown:hover .dropdown-content {
     background-color: #11253d;
 }
 
+#img-service{
+    width: 95%;
+    margin-top:5vh;
+    box-shadow: 2px 2px 16px #00abe4;
+}
+
 /*Courses Card Starts here...*/
 .course-card{
     width:95%;
@@ -215,7 +223,7 @@ header .dropdown:hover .dropdown-content {
     flex-direction: column;
     box-shadow: 2px 2px 16px #1e395b;
     justify-content: center;
-    margin-top:10vh;
+    margin-top:5vh;
     align-items: center;
 }
 .course{
@@ -241,7 +249,11 @@ header .dropdown:hover .dropdown-content {
     background-color: #0298ca;
 }
 
-
+#img-career{
+    width: 95%;
+    margin-top:5vh;
+    box-shadow: 2px 2px 16px #00abe4;
+}
 
 /*Careers Card Starts here...*/
 .career-card{
@@ -253,7 +265,7 @@ header .dropdown:hover .dropdown-content {
     flex-direction: column;
     box-shadow: 2px 2px 16px #00abe4;
     justify-content: center;
-    margin-top:10vh;
+    margin-top:5vh;
     align-items: center;
 }
 .career{
@@ -344,7 +356,51 @@ header .dropdown:hover .dropdown-content {
     border-bottom-left-radius: 30px;
 }
 
+/*Footer starts here...*/
 
+.footer{
+    background-color: #1e395b;
+    height:50vh;
+    width:100%;
+    margin-top: 10vh;
+    display:flex;
+    justify-content: space-around;
+    border-bottom: 3px solid #E9F1FA;
+}
+.col{
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+}
+.col p{
+    color:#E9F1FA;
+    font-weight: bold;
+    font-size: 1vw;
+    padding:5vh 0 2vh 10px;
+}
+.col a{
+    color:#E9F1FA;
+    font-size: 0.8vw;
+    text-decoration: none;
+    padding:3px 10px;
+}
+.col i{
+    font-size: 0.8vw;
+}
+.col span{
+    font-size: 0.7vw;
+}
+.footer2{
+    width:100%;
+    height:15vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background:#1e395b;
+}
+.footer2 span{
+    color:#E9F1FA;
+}
 
 
 
