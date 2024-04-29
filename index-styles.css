@@ -209,7 +209,7 @@ header .dropdown:hover .dropdown-content {
 .course-card{
     width:95%;
     height:55vh;
-    background-color: #11253d;
+    background-color: #1e395b;
     border-radius: 10px;
     display:flex;
     flex-direction: column;
@@ -217,21 +217,6 @@ header .dropdown:hover .dropdown-content {
     justify-content: center;
     margin-top:10vh;
     align-items: center;
-}
-
-#services{
-    text-align: center;
-    font-size: 4vw;
-    font-family: Century Gothic;
-    color:#E9F1FA;
-    font-weight: bold;
-}
-.service-list{
-    width: 98%;
-    height: 75%;
-    display:flex;
-    justify-content: space-around;
-    margin-top: 10px;
 }
 .course{
     width: 21%;
@@ -258,6 +243,106 @@ header .dropdown:hover .dropdown-content {
 
 
 
+/*Careers Card Starts here...*/
+.career-card{
+    width:95%;
+    height:55vh;
+    background-color: #00abe4;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 16px #00abe4;
+    justify-content: center;
+    margin-top:10vh;
+    align-items: center;
+}
+.career{
+    width: 21%;
+    height: 95%;
+    background-color: #1e395b;
+    border-radius: 30px;
+    box-shadow: 2px 2px 8px #1e395b;
+    display:flex;
+    justify-content: center;
+    align-items: center;   
+    transition: background-color 0.3s;
+}
+.career p{
+    text-align: center;
+    font-size: 3vw;
+    font-family: Century Gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+    text-align: center;
+}
+.career:hover{
+    background-color: #11253d;
+}
+
+
+/*Team Card Starts here...*/
+.team-card{
+    width:95%;
+    height:55vh;
+    background-color: #1e395b;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 16px #1e395b;
+    justify-content: center;
+    align-items: center;
+    margin-top:10vh;
+}
+
+.team-list{
+    width: 98%;
+    height: 75%;
+    display:flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.team{
+    width:40%;
+    height:95%;
+    background-color: #00abe4;
+    display:flex;
+    flex-direction: row;
+    border-radius: 30px;
+    box-shadow: 2px 2px 8px #00abe4;
+}
+.desc{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+}
+.desc .mem{
+    padding:5px 0 0 10px;
+    font-family: century gothic;
+    color:#E9F1FA;
+    font-weight: bold;
+    font-size: 3vh;
+
+}
+.desc .member-name{
+    font-size: 3vw;
+    font-weight: bold;
+    height:50%;
+    padding:5px;
+    color:#E9F1FA;
+    border-bottom: 3px solid #11253d;
+    text-decoration:underline;
+    text-decoration-color: #1e395b;
+}
+.desc .member-des{
+    font-size: 2vw;
+}
+/*Team member card here...*/
+
+.pic{
+    width:50%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
 
 
 
