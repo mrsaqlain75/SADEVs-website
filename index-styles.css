@@ -37,6 +37,13 @@ header img{
     float:left;
 }
 
+
+.menu-btn {
+    display: none;
+    font-size: 30px;
+    color: #1e395b;
+    cursor: pointer;
+}
 /* dropdown here */
 
 header ul, li {
@@ -100,10 +107,10 @@ header .dropdown:hover .dropdown-content {
 
 /* Hero Section Starts Here  */
 .hero-section{
-    height:300px;
+    height:260px;
     display:flex;
     flex-direction: column;
-    margin-top: 6vh;
+    margin-top: 3vh;
     align-items: center;
     width:100%;
 }
@@ -209,7 +216,6 @@ header .dropdown:hover .dropdown-content {
 
 #img-service{
     width: 95%;
-    margin-top:5vh;
     box-shadow: 2px 2px 16px #00abe4;
 }
 
@@ -415,7 +421,7 @@ header .dropdown:hover .dropdown-content {
         font-size: 11px;
     }
     .hero-section{
-        height:180px;
+        height:250px;
     }
     .team{
         width:50%;
@@ -437,7 +443,7 @@ header .dropdown:hover .dropdown-content {
         margin:auto;
     }
     .hero-section{
-        height:140px;
+        height:190px;
     }
     #search-input{
         height: 40px;
@@ -531,14 +537,137 @@ header .dropdown:hover .dropdown-content {
         font-size: 10px;
     }
 
+    .menu-btn {
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 35px;
+    }
+    header{
+        height:70px;
+    }
+    header .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #E9F1FA;
+    }
+    
+    header .menu.active {
+        display: flex;
+    }
+
+    header .menu li {
+        text-align: center;
+        width: 100%;
+    }
+
+    header .menu a {
+        padding: 10px;
+        border-bottom: 1px solid #00abe4;
+    }
+    .hero-section{
+        margin-top:10px;
+    }
+    #search-btn{
+        width:70px;
+        height:30px;
+    }
+    #img-service{
+        margin-top: 10px;
+    }
+
 }
 
-/* Small devices (phones, less than 576px) */
+/*Small devices (phones, less than 576px)*/
 @media (max-width: 575px) {
+    #hamburger{
+        font-size: 22px;
+    }
     header{
         height:12vh;
     }
     body{
-        font-size: 7px;
+        font-size: 5px;
     }
+    .pre-header p{
+        font-size: 8px;
+    }
+    header{
+        height:60px;
+    }
+    .hero-section{
+        margin-top: 10px;
+        height:120px;
+    }
+    #search-btn{
+        width:70px;
+        height:30px;
+    }
+    #img-service{
+        margin-top: 10px;
+    }
+    #services{
+        font-size: 35px;
+    }
+    .service{
+        width:90%;
+    }
+    .career{
+        width:90%;
+    }
+    .course{
+        width:90%;
+    }
+    .career p{
+        font-size: 20px;
+    }
+    
+    .service p{
+        font-size: 20px;
+    }
+    
+    .course p{
+        font-size: 20px;
+    }
+    .service-card{
+        margin-top:20px;
+    }
+    .course-card{
+        margin-top:20px;
+    }
+    .career-card{
+        margin-top:20px;
+    }
+    .team-card{
+        margin-top:20px;
+    }
+    #img-career{
+        margin-top:20px;
+    }
+    .footer{
+        margin-top:20px;
+    }
+    .col p{
+        padding-top:30px;
+    }
+    #search-input{
+        font-size: 12px;
+    }
+    .team-card{
+        height:200px;
+    }
+    .desc .member-name{
+        font-size: 30px;
+        border-bottom: none;
+    }
+    .desc .member-des{
+        margin-top:5px;
+        font-size: 15px;
+    }
+
+
 }

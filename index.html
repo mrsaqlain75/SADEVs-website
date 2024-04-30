@@ -15,6 +15,9 @@
     </div>
     <header>
         <img src="Images/sadevs-logo.png" alt="company-logo">
+        <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
         <ul class="menu">
             <li><a href="#">Home</a></li>
             <li><a href="#">Latest</a></li>
@@ -139,5 +142,16 @@
         <span>Copyright © 2024 - onwards SADEVs Company. All rights reserved.</span>
     </div>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const menu = document.querySelector('.menu');
+            
+            menuBtn.addEventListener('click', function() {
+                menu.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
