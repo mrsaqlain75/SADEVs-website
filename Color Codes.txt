@@ -1,0 +1,4 @@
+Bright Blue: #00abe4
+Light Blue: #E9F1FA
+Text Color: #1e395b
+White Color: #ffffff

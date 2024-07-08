@@ -36,8 +36,6 @@ header img{
     padding:10px;
     float:left;
 }
-
-
 .menu-btn {
     display: none;
     font-size: 30px;
@@ -114,6 +112,9 @@ header .dropdown:hover .dropdown-content {
     align-items: center;
     width:100%;
 }
+#hero-text{
+    /*Add animations here...*/
+}
 
 .hero-section p{
     text-align: center;
@@ -143,7 +144,7 @@ header .dropdown:hover .dropdown-content {
 }
 #search-btn{
     width:10vw;
-    height:60px;
+    height:40px;
     margin-top: 20px;
     background-color: #00abe4;
     border:none;
@@ -160,6 +161,12 @@ header .dropdown:hover .dropdown-content {
     background:#E9F1FA;
     color:#00abe4;
     border:3px solid #00abe4;
+}
+
+#img-service{
+    width: 95%;
+    box-shadow: 2px 2px 16px #00abe4;
+    margin-top: -30px;
 }
 
 /* Services card starts here...*/
@@ -214,10 +221,7 @@ header .dropdown:hover .dropdown-content {
     background-color: #11253d;
 }
 
-#img-service{
-    width: 95%;
-    box-shadow: 2px 2px 16px #00abe4;
-}
+
 
 /*Courses Card Starts here...*/
 .course-card{
