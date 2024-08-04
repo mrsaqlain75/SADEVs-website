@@ -1,0 +1,108 @@
+* {
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    background-color: #E9F1FA;
+    padding: 0;
+    margin: 0;
+}
+
+.menu {
+    width: 20%;
+    height: 100vh;
+    background-color: #005e7e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    z-index: 1;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #E9F1FA;
+}
+
+li:hover {
+    background-color: #00abe4;
+    border-right: 1px solid #005e7e;
+}
+
+.dashboard {
+    margin-left: 20%;
+    padding: 20px;
+    width: 80%;
+    height: 100vh;
+    background-color: #E9F1FA;
+    overflow: auto;
+}
+
+.user-data {
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #005e7e;
+    color: #ffffff;
+}
+thead .heading-row td {
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #00abe4;
+}
+
+button.delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete-btn:hover {
+    background-color: #c0392b;
+}

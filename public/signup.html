@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index-styles.css">
+    <link rel="stylesheet" href="signup.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+        }
+        .input-box {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="pre-header">
+        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+    </div>
+    <header>
+      <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+      <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Latest</a></li>
+            <li><a href="#">Popular</a></li>
+            <li class="dropdown">
+                <a href="#">Categories</a>
+                <ul class="dropdown-content">
+                    <li><a href="#">IT & Tech</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Earning Techniques</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Write & Earn</a></li>
+            <li><a href="#">Online Courses</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+            <li class="focus"><a href="signin.html">Sign In</a></li>
+            <li><a style="background-color: #00abe4;" href="signup.html">Sign Up</a></li>
+        </ul>
+    </header>
+    <div class="wrapper">
+        <h2>Registration</h2>
+        <form id="signup_form">
+          <div class="input-box">
+            <input type="text" id="name" placeholder="Enter your name" required>
+            <span id="name-error" class="error-message"></span>
+          </div>
+          <div class="input-box">
+            <input type="text" id="email" placeholder="Enter your email" required>
+            <span id="email-error" class="error-message"></span>
+          </div>
+          <div class="input-box">
+            <input type="password" id="password" placeholder="Create password" required>
+            <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+            <span id="password-error" class="error-message"></span>
+          </div>
+          <div class="input-box">
+            <input type="password" id="confirm-password" placeholder="Confirm password" required>
+            <i class="fas fa-eye toggle-password" id="toggle-confirm-password"></i>
+            <span id="confirm-password-error" class="error-message"></span>
+          </div>
+          <div class="policy">
+            <input type="checkbox" id="terms-cond-box">
+            <h3>I accept all terms & condition</h3>
+          </div>
+          <div class="input-box button">
+            <input type="submit" id="signup" value="Register Now">
+          </div>
+          <div class="text">
+            <h3>Already have an account? <a href="Signin.html">Login now</a></h3>
+          </div>
+        </form>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const menu = document.querySelector('.menu');
+            
+            menuBtn.addEventListener('click', function() {
+                menu.classList.toggle('active');
+            });
+        });
+
+        async function checkEmailExists(email) {
+          console.log("Checking if email exists:", email); // Debug log
+          const response = await fetch('/check-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const result = await response.json();
+          console.log("Email exists check result:", result); // Debug log
+          return result.exists;
+        }
+
+        document.getElementById("signup_form").addEventListener('submit', async function(event){
+          event.preventDefault();
+          console.log("Signup form submitted"); // Debug log
+          
+          // Get values from input fields
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const pass = document.getElementById('password').value;
+          const cpass = document.getElementById('confirm-password').value;
+          const terms = document.getElementById('terms-cond-box').checked;
+
+          // Validation
+          let isValid = true;
+          if (name.trim() === '') {
+            document.getElementById('name-error').textContent = 'Name is required';
+            isValid = false;
+          } else {
+            document.getElementById('name-error').textContent = '';
+          }
+
+          if (email.trim() === '') {
+            document.getElementById('email-error').textContent = 'Email is required';
+            isValid = false;
+          } else {
+            const emailExists = await checkEmailExists(email);
+            if (emailExists) {
+              document.getElementById('email-error').textContent = 'Email already exists';
+              isValid = false;
+            } else {
+              document.getElementById('email-error').textContent = '';
+            }
+          }
+
+          if (pass.trim() === '') {
+            document.getElementById('password-error').textContent = 'Password is required';
+            isValid = false;
+          } else {
+            document.getElementById('password-error').textContent = '';
+          }
+
+          if (cpass.trim() === '') {
+            document.getElementById('confirm-password-error').textContent = 'Confirm password is required';
+            isValid = false;
+          } else if (pass !== cpass) {
+            document.getElementById('confirm-password-error').textContent = 'Passwords do not match';
+            isValid = false;
+          } else {
+            document.getElementById('confirm-password-error').textContent = '';
+          }
+
+          if (!terms) {
+            alert('Please accept the terms and conditions');
+            isValid = false;
+          }
+
+          if (!isValid) {
+            return;
+          }
+
+          // Submit form if valid
+          try {
+            const response = await fetch('/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ name, email, pass, cpass, terms })
+            });
+
+            const result = await response.json();
+            console.log("Save result:", result); // Debug log
+
+            if (response.ok) {
+              alert(result.message);
+              document.getElementById('signup_form').reset();
+            } else {
+              alert(result.message);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+          }
+        });
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+          const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordField.setAttribute('type', type);
+          this.classList.toggle('fa-eye-slash');
+        });
+
+        // Toggle confirm password visibility
+        const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+        const confirmPasswordField = document.getElementById('confirm-password');
+
+        toggleConfirmPassword.addEventListener('click', function() {
+          const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+          confirmPasswordField.setAttribute('type', type);
+          this.classList.toggle('fa-eye-slash');
+        });
+
+      </script>
+</body>
+</html>
