@@ -1,0 +1,234 @@
+:root {
+    --primary-color: #00abe4;
+    --secondary-color: #00abe4;
+    --black: #000000;
+    --white: #11253d;
+    --gray: #efefef;
+    --gray-2: #00abe4;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    color:#1e395b;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display:flex;
+    flex-direction: column;
+}
+.focus:hover{
+    text-shadow: 1px 1px 2px lightsalmon;
+}
+.head{
+margin-top:5vh;
+font-size: 40px;
+}
+.wrapper{
+    position: relative;
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    padding: 34px;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px #1e395b;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .wrapper h2{
+    position: relative;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1e395b;
+  }
+  .wrapper h2::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 28px;
+    border-radius: 12px;
+    background: #00abe4;
+  }
+  .wrapper form{
+    margin-top: 30px;
+  }
+  .wrapper form .input-box{
+    height: 52px;
+    margin: 18px 0;
+  }
+  form .input-box input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #1e395b;
+    border: 1.5px solid #C7BEBE;
+    border-bottom-width: 2.5px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  .input-box input:focus,
+  .input-box input:valid{
+    border-color: #1e395b;
+  }
+  form .policy{
+    display: flex;
+    align-items: center;
+  }
+  form h3{
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+  .input-box.button input{
+    color: #fff;
+    letter-spacing: 1px;
+    border: none;
+    background: #00abe4;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .input-box.button input:hover{
+    background: #2bc1f3;
+  }
+  form .text h3{
+   color: #333;
+   width: 100%;
+   text-align: center;
+  }
+  form .text h3 a{
+    color: #00abe4;
+    text-decoration: none;
+  }
+  form .text h3 a:hover{
+    text-decoration: underline;
+  }
+
+
+
+
+  
+/* Extra large devices (large desktops, less than 1200px) */
+@media (max-width: 1199px) {
+
+    body{
+        font-size: 11px;
+    }
+
+}
+
+/* Large devices (desktops, less than 992px) */
+@media (max-width: 991px) {
+
+    body{
+        font-size: 10px;
+    }
+    header{
+        height:100px;
+    }
+    header img{
+        float:none;
+        display:block;
+        margin:auto;
+    }    
+
+    .footer{
+        height:1130px;
+        flex-direction: column;
+
+    }
+    .col p{
+        font-size: 20px;
+    }
+    .col a{
+        font-size: 16px;
+    }
+    .col i{
+        font-size: 16px;
+    }
+
+
+}
+
+/* Medium devices (tablets, less than 768px) */
+@media (max-width: 767px) {
+
+
+    body{
+        font-size: 9px;
+    }
+
+    .pre-header p{
+        font-size: 10px;
+    }
+    .footer span{
+        font-size: 10px;
+        margin-left: 5px;
+    }
+    .footer2 span{
+        font-size: 10px;
+    }
+
+    .menu-btn {
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 35px;
+    }
+    header{
+        height:70px;
+    }
+    header .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #E9F1FA;
+        z-index: 1;
+    }
+    
+    header .menu.active {
+        display: flex;
+    }
+
+    header .menu li {
+        text-align: center;
+        width: 100%;
+    }
+
+    header .menu a {
+        padding: 10px;
+        border-bottom: 1px solid #00abe4;
+    }
+}
+
+/*Small devices (phones, less than 576px)*/
+@media (max-width: 575px) {
+    #hamburger{
+        font-size: 22px;
+    }
+    header{
+        height:12vh;
+    }
+    body{
+        font-size: 5px;
+    }
+    .pre-header p{
+        font-size: 8px;
+    }
+    header{
+        height:60px;
+    }
+
+}
