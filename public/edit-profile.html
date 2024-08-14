@@ -50,7 +50,7 @@
     </h1>
     <div class="wrapper">
         <h2>Enter your remaining details.</h2>
-        <form id="signup_form">
+        <form id="profile_form">
             <div class="col col1">
 
           <div class="input-box">
@@ -296,8 +296,8 @@
                 <span id="address-error" class="error-message"></span>
               </div>
               <div class="input-box">
-                <input type="file" style="padding:11px" id="address" placeholder="Enter your address" required>
-                <span id="address-error" class="error-message"></span>
+                <input type="file" style="padding:11px" id="photo">
+                <span id="photo-error" class="error-message"></span>
               </div>
               <div class="policy" style="display:flex; flex-direction: column;">
                 <h3>You can't change for next 6 months.</h3>
@@ -310,6 +310,7 @@
       </div>
 </body>
 
+<script src="log.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
       const menuBtn = document.querySelector('.menu-btn');
@@ -320,5 +321,51 @@
       });
   });
 </script>
-<script src="log.js"></script>
+    <script>
+        document.getElementById('profile_form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Validate phone number (example validation, adjust as needed)
+            const phone = document.getElementById('phone').value;
+            if (!/^[0-9]{8,18}$/.test(phone)) {
+                document.getElementById('phone-error').textContent = 'Please enter a valid phone number.';
+                return;
+            } else {
+                document.getElementById('phone-error').textContent = '';
+            }
+
+            // Validate file size
+            const photo = document.getElementById('photo').files[0];
+            if (photo.size > 512000) { // 500KB limit
+                document.getElementById('photo-error').textContent = 'Photo size must be less than 500KB.';
+                return;
+            } else {
+                document.getElementById('photo-error').textContent = '';
+            }
+
+            const formData = new FormData();
+            formData.append('phone', phone);
+            formData.append('dob', document.getElementById('dob').value);
+            formData.append('gender', document.querySelector('input[name="gender"]:checked').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('photo', photo);
+
+            try {
+                const response = await fetch('/update-profile', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                  });
+
+                if (response.ok) {
+                    alert('Data inserted successfully!');
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Failed to update profile.');
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
+        });
+    </script>
 </html>

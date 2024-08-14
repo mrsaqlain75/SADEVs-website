@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fetch session status from the server
     fetch('/session-status')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(result => {
             if (result.loggedIn) {
                 console.log('Logged In');
@@ -29,8 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error checking session status:', error);
         });
-});
-
 
     const userIcon = document.getElementById('user-icon');
     const userDropdown = document.getElementById('user-dropdown');
@@ -48,3 +51,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Logout failed:", error);
         }
     });
+});

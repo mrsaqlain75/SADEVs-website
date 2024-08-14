@@ -68,45 +68,47 @@
     </script>
     <script>
       document.getElementById("login_form").addEventListener('submit', async function(event){
-  event.preventDefault();
+    event.preventDefault();
 
-  // Getting values from the input boxes
-  const email = document.getElementById('email').value;
-  const pass = document.getElementById('pass').value;
+    // Getting values from the input boxes
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('pass').value;
 
-  try {
-    // Sending login request
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, pass })
-    });
+    try {
+        // Sending login request
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, pass })
+        });
 
-    const result = await response.json();
+        // Checking if the response is okay
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-    if (response.ok) {
-      window.alert(result.message);
+        const result = await response.json();
 
-      // Fetching session data
-      const sessionResponse = await fetch('/session-data');
-      const sessionResult = await sessionResponse.json();
+        window.alert(result.message);
 
-      if (sessionResponse.ok) {
+        // Fetching session data
+        const sessionResponse = await fetch('/session-data');
+        if (!sessionResponse.ok) {
+            throw new Error(`Session error! status: ${sessionResponse.status}`);
+        }
+        const sessionResult = await sessionResponse.json();
+
         // Alerting session data before redirecting
         window.alert(`Session Data: ${JSON.stringify(sessionResult.sessionData)}`);
         // Redirect to the next webpage
-        window.location.href = "edit-profile.html";
-      } else {
-        window.alert(sessionResult.message);
-      }
-      
-    } else {
-      window.alert(result.message);
+        window.location.href = "index.html";
+
+    } catch (error) {
+        console.error("An error occurred:", error);
+        window.alert("An error occurred: " + error.message);
     }
-  } catch (error) {
-    window.alert("An error occurred");
-  }
 });
+
 
     </script>
 </body>

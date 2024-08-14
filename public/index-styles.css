@@ -112,9 +112,6 @@ header .dropdown:hover .dropdown-content {
     align-items: center;
     width:100%;
 }
-#hero-text{
-    /*Add animations here...*/
-}
 
 .hero-section p{
     text-align: center;
@@ -591,6 +588,9 @@ header .dropdown:hover .dropdown-content {
     #hamburger{
         font-size: 22px;
     }
+    .menu{
+        font-size: 10px;
+    }
     header{
         height:12vh;
     }
@@ -672,6 +672,4 @@ header .dropdown:hover .dropdown-content {
         margin-top:5px;
         font-size: 15px;
     }
-
-
 }
