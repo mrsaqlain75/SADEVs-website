@@ -68,31 +68,46 @@
     </script>
     <script>
       document.getElementById("login_form").addEventListener('submit', async function(event){
-        event.preventDefault();
+  event.preventDefault();
 
-        //Getting values from the input boxes
-        const email = document.getElementById('email').value;
-        const pass = document.getElementById('pass').value;
-        try{
-          const response = await fetch('/login', {
-            method : 'POST',
-            headers : {
-              'Content-Type' : 'application/json'},
-            body: JSON.stringify({email,pass})
-          });
-          const result = await response.json();
-          if (response.ok){
-            window.alert(result.message);
-            //redirect to any other webpage
-            window.location.href="edit-profile.html";
-          }
-          else{
-            window.alert(result.message);
-          }
-        }catch(error){
-          window.alert("An error occured");
-        }
-      });
+  // Getting values from the input boxes
+  const email = document.getElementById('email').value;
+  const pass = document.getElementById('pass').value;
+
+  try {
+    // Sending login request
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, pass })
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      window.alert(result.message);
+
+      // Fetching session data
+      const sessionResponse = await fetch('/session-data');
+      const sessionResult = await sessionResponse.json();
+
+      if (sessionResponse.ok) {
+        // Alerting session data before redirecting
+        window.alert(`Session Data: ${JSON.stringify(sessionResult.sessionData)}`);
+        // Redirect to the next webpage
+        window.location.href = "edit-profile.html";
+      } else {
+        window.alert(sessionResult.message);
+      }
+      
+    } else {
+      window.alert(result.message);
+    }
+  } catch (error) {
+    window.alert("An error occurred");
+  }
+});
+
     </script>
 </body>
 </html>

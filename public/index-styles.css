@@ -305,7 +305,7 @@ header .dropdown:hover .dropdown-content {
 /*Team Card Starts here...*/
 .team-card{
     width:95%;
-    height:65vh;
+    height:50vh;
     background-color: #1e395b;
     border-radius: 10px;
     display:flex;

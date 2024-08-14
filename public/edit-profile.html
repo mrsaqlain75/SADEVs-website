@@ -33,14 +33,16 @@
             <li><a href="#">Online Courses</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About</a></li>
-            <li  class="focus" class="dropdown">
-                <a href="#" style="background-color: #00abe4; color:#E9F1FA">Your Profile</a>
-                <ul class="dropdown-content">
-                    <li><a href="#">IT & Tech</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Earning Techniques</a></li>
-                </ul>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn" style="margin-left: auto;"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon">User</a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
             </li>
+            
         </ul>
     </header>
     <h1 class="head">
@@ -50,13 +52,10 @@
         <h2>Enter your remaining details.</h2>
         <form id="signup_form">
             <div class="col col1">
-          <div class="input-box">
-            <input type="text" id="name" placeholder="Name can't be changed" disabled>
-            <span id="name-error" class="error-message"></span>
-          </div>
+
           <div class="input-box">
             <input type="text" id="phone" placeholder="Enter your phone number" required>
-            <span id="email-error" class="error-message"></span>
+            <span id="phone-error" class="error-message"></span>
           </div>
           <div class="input-box" style="display:flex; align-items: center; margin-left:10px; font-family: sans-serif; font-size: 18px;">
             <label for="">Date of Birth</label>
@@ -64,9 +63,8 @@
           <div class="input-box" style="display:flex; align-items: center; margin-left:10px; font-family: sans-serif; font-size: 18px;">
             <label for="">Gender</label>
           </div>
-          <div class="input-box">
-            <input type="password" id="pass" placeholder="Enter your password to proceed" required>
-            <span id="password-error" class="error-message"></span>
+          <div class="input-box" style="display:flex; align-items: center; margin-left:10px; font-family: sans-serif; font-size: 18px;">
+            <label for="">Full Address</label>
           </div>
           <div class="input-box" style="display:flex; align-items: center; margin-left:10px; font-family: sans-serif; font-size: 18px;">
             <label for="">Photo</label>
@@ -74,17 +72,13 @@
           <div class="policy" style="display:flex; flex-direction: column;">
             <h3>Please revise your entered information.</h3>
           </div>
-
           <div class="input-box button">
             <input type="submit" id="signup" value="Save Data">
           </div>
         </div>
 
         <div class="col col1">
-            <div class="input-box">
-                <input type="text" id="email" placeholder="Enter your email" required>
-                <span id="email-error" class="error-message"></span>
-              </div>
+
             <div class="input-box">
 <select name="country" id="country" class="input">
   <option value="Afghanistan">Afghanistan</option>
@@ -314,17 +308,17 @@
 
         </form>
       </div>
- 
-
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.querySelector('.menu-btn');
-            const menu = document.querySelector('.menu');
-            
-            menuBtn.addEventListener('click', function() {
-                menu.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.querySelector('.menu-btn');
+      const menu = document.querySelector('.menu');
+      
+      menuBtn.addEventListener('click', function() {
+          menu.classList.toggle('active');
+      });
+  });
+</script>
+<script src="log.js"></script>
 </html>

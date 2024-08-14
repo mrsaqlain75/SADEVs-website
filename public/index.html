@@ -34,8 +34,15 @@
             <li><a href="#">Online Courses</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About</a></li>
-            <li class="focus"><a href="#">Sign In</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn" style="margin-left: auto;"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon">User</a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
+            </li>
         </ul>
     </header>
 
@@ -142,16 +149,17 @@
         <span>Copyright © 2024 - onwards SADEVs Company. All rights reserved.</span>
     </div>
 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.querySelector('.menu-btn');
-            const menu = document.querySelector('.menu');
-            
-            menuBtn.addEventListener('click', function() {
-                menu.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
+
+<script src="log.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        menuBtn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    });
+</script>
 </html>
