@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADEVs Home Page</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index-styles.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="pre-header">
+        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+    </div>
+    <header>
+        <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Latest</a></li>
+            <li><a href="#">Popular</a></li>
+            <li class="dropdown">
+                <a href="#">Categories</a>
+                <ul class="dropdown-content">
+                    <li><a href="#">IT & Tech</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Earning Techniques</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Write & Earn</a></li>
+            <li><a href="#">Online Courses</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon"><i class="fa-solid fa-user"></i></a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="post-article.html">Post an article</a></li>
+                <li><a href="profile.html">Your Profile</a></li>
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
+            </li>
+        </ul>
+    </header>
+
+
+
+<!-- Profile Section -->
+<section class="profile-section">
+    <div class="profile-header">
+        <img src="Images/user-placeholder.png" alt="Profile Picture" class="profile-picture">
+        <h2 class="user-name">John Doe</h2>
+    </div>
+    <div class="profile-content">
+        <h3 style="font-size:15px">Your Posts</h3>
+        <ul class="posts-list">
+            <li><a href="#">Post Title 1</a></li>
+            <li><a href="#">Post Title 2</a></li>
+            <li><a href="#">Post Title 3</a></li>
+            <!-- Add more posts as needed -->
+        </ul>
+    </div>
+</section>
+
+
+
+          
+    <div class="footer">
+        <div class="col col1">
+            <p>CONTENT</p>
+            <a href="">IT & Tech</a>
+            <a href="">News</a>
+            <a href="">Write & Earn</a>
+            <a href="">How to use?</a>
+            <a href="">FAQs</a>
+        </div>
+        <div class="col col2">
+            <p>SERVICES</p>
+            <a href="">Free Articles Publishing</a>
+            <a href="">Website Development</a>
+            <a href="">Mobile App Development</a>
+            <a href="">Video Editing</a>
+            <a href="">Online Courses</a>
+            <a href="">Graphic Designing</a>
+            <a href="">Get a Tutor</a>
+            <a href="">Counseling</a>
+        </div>
+        <div class="col col3">
+            <p>CONTACTS</p>
+            <a href="">Address: Chitral Town, Lower Chitral</a>
+            <a href="">KPK, Pakistan</a>
+            <a href="">Contact No. +92375857692</a>
+            <a href="">Contact Us</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Site Developer</a>
+            <a href="">About Us</a>
+        </div>
+        <div class="col col4">
+            <p>SOCIAL LINKS</p>
+            <a href=""><i class="fa-brands fa-facebook"><span> Facebook</span></i></a>
+            <a href=""><i class="fa-brands fa-youtube"><span> YouTube</span></i></a>
+            <a href=""><i class="fa-brands fa-whatsapp"><span> Whatsapp</span></i></a>
+            <a href=""><i class="fa-brands fa-instagram"><span> Instagram</span></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"><span> X-Twitter</span></i></a>
+            <a href=""><i class="fa-solid fa-envelope"><span> GMail</span></i></a>
+            <a href=""><i class="fa-brands fa-github"><span> GitHub</span></i></a>
+        </div>
+    </div>
+    <div class="footer2">
+        <span>Copyright © 2024 - onwards SADEVs Company. All rights reserved.</span>
+    </div>
+
+</body>
+
+<script src="log.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        menuBtn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    });
+</script>
+<!-- Add this script to profile.html -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/get-profile-data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load profile data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.querySelector('.user-name').textContent = data.name;
+                document.querySelector('.profile-picture').src = data.photo;
+            })
+            .catch(error => {
+                console.error('Error fetching profile data:', error);
+            });
+    
+        // Existing menu toggle code
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        menuBtn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    });
+    </script>
+    
+</html>

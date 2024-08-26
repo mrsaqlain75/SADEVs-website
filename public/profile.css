@@ -1,0 +1,83 @@
+/* General styling for the profile section */
+.profile-section {
+    width:80%;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #00abe4;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-content {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.posts-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.posts-list li {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.posts-list li a {
+    text-decoration: none;
+    color: #00abe4;
+    font-size: 18px;
+}
+
+.posts-list li a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styling */
+@media screen and (max-width: 768px) {
+    .profile-section {
+        padding: 15px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-size: 20px;
+    }
+
+    .profile-content {
+        margin: 0 10px;
+    }
+
+    .posts-list li {
+        font-size: 16px;
+    }
+}
