@@ -50,6 +50,7 @@
 }
 
 .posts-list li a {
+    width:90%;
     text-decoration: none;
     color: #00abe4;
     font-size: 18px;

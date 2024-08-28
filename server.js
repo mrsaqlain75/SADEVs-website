@@ -53,7 +53,7 @@ const uploadPost = multer({ storage: storagePost });
 
 // Handle post submissions
 app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
-  const { content } = req.body;
+  const { title, content } = req.body;
   const files = req.files;
 
   const imagePaths = files.map(file => '/postuploads/' + file.filename);
@@ -64,6 +64,7 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
       const collection = db.collection(postsCollectionName);
 
       const newPost = {
+          title, // Include title in the document
           content,
           images: imagePaths,
           authorEmail: req.session.email,
@@ -192,7 +193,7 @@ app.post('/update-profile', ensureAuthenticated, upload.single('photo'), async (
   const address = req.body.address;
   const photo = req.file;
 
-  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(url );
 
   try {
       await client.connect();
@@ -257,7 +258,7 @@ app.post('/logout', (req, res) => {
 
 // Add this route to server.js
 app.get('/get-profile-data', ensureAuthenticated, async (req, res) => {
-  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(url );
 
   try {
       await client.connect();
@@ -283,7 +284,7 @@ app.get('/get-profile-data', ensureAuthenticated, async (req, res) => {
 
 
 app.get('/fetch', async (req, res) => {
-  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(url);
 
   try {
       await client.connect();
@@ -304,7 +305,7 @@ app.get('/fetch', async (req, res) => {
 app.delete('/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
-  const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(url );
 
   try {
       await client.connect();
@@ -321,6 +322,33 @@ app.delete('/delete/:id', async (req, res) => {
       client.close();
   }
 });
+
+app.get('/get-posts', ensureAuthenticated, async (req, res) => {
+  const client = new MongoClient(url);
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("posts");
+
+    const posts = await collection.find({ authorEmail: req.session.email }).toArray();
+
+    if (posts.length === 0) {
+      return res.status(404).json({ message: "No posts found" });
+    }
+
+    res.json(posts);
+
+  } catch (error) {
+    console.error('Error fetching posts', error);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    client.close();
+  }
+});
+
+
+
+
 
 
 app.listen(port, () => {
