@@ -20,21 +20,10 @@
             <i id="hamburger" class="fas fa-bars"></i>
         </div>
         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Latest</a></li>
-            <li><a href="#">Popular</a></li>
-            <li class="dropdown">
-                <a href="#">Categories</a>
-                <ul class="dropdown-content">
-                    <li><a href="#">IT & Tech</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Earning Techniques</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Write & Earn</a></li>
-            <li><a href="#">Online Courses</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="writeearn.html">Write & Earn</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
             <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
             <li id="signup-btn"><a href="signup.html">Sign Up</a></li>
             <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
@@ -183,7 +172,7 @@
     posts.forEach(post => {
       const listItem = document.createElement('li');
       const postLink = document.createElement('a');
-      postLink.href = "#";  // You can update this to link to the actual post
+      postLink.href = `/see-post.html?id=${post._id}`;
       postLink.textContent = post.title + ' - ' + new Date(post.createdAt).toLocaleDateString();
 
       listItem.appendChild(postLink);

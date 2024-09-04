@@ -68,7 +68,9 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
           content,
           images: imagePaths,
           authorEmail: req.session.email,
-          createdAt: new Date()
+          createdAt: new Date(),
+          likes: 0,
+          approved: false
       };
 
       await collection.insertOne(newPost);
@@ -323,6 +325,53 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
+
+//Posts in dashboard
+
+app.get('/fetch-posts-list', async (req, res) => {
+  const client = new MongoClient(url);
+
+  try {
+      await client.connect();
+      const db = client.db(dbName);
+      const collection = db.collection("posts");
+
+      const posts = await collection.find({}).toArray();
+      res.json(posts);
+  } catch (error) {
+      console.error('Error fetching posts:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+      client.close();
+  }
+});
+
+// Add this route to delete a post by ID
+app.delete('/delete-post/:id', async (req, res) => {
+  const postId = req.params.id;
+
+  const client = new MongoClient(url );
+
+  try {
+      await client.connect();
+      const db = client.db(dbName);
+      const collection = db.collection("posts");
+
+      await collection.deleteOne({ _id: new ObjectId(postId) });
+
+      res.json({ message: 'Post deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting post:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+      client.close();
+  }
+});
+
+
+
+
+
 app.get('/get-posts', ensureAuthenticated, async (req, res) => {
   const client = new MongoClient(url);
   try {
@@ -330,7 +379,7 @@ app.get('/get-posts', ensureAuthenticated, async (req, res) => {
     const db = client.db(dbName);
     const collection = db.collection("posts");
 
-    const posts = await collection.find({ authorEmail: req.session.email }).toArray();
+    const posts = await collection.find({ authorEmail: req.session.email,  approved: true }).toArray();
 
     if (posts.length === 0) {
       return res.status(404).json({ message: "No posts found" });
@@ -348,8 +397,107 @@ app.get('/get-posts', ensureAuthenticated, async (req, res) => {
 
 
 
+// Getting post from Database to display on the see-post.html
+app.get('/get-post-from-db', async (req, res) => {
+    const client = new MongoClient(url);
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const postsCollection = db.collection("posts");
+        const usersCollection = db.collection("user_data");
+
+        // Retrieve the postId from the query parameters
+        const postId = req.query.id;
+
+        // Ensure that the postId is valid
+        if (!ObjectId.isValid(postId)) {
+            return res.status(400).json({ message: 'Invalid post ID' });
+        }
+
+        // Convert the postId to an ObjectId and query the database for the post
+        const post = await postsCollection.findOne({ _id: new ObjectId(postId), approved : true });
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        // Query the user_data collection to get the author's name using the authorEmail from the post
+        const user = await usersCollection.findOne({ email: post.authorEmail });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Send the post data along with the author's name to the client
+        res.json({
+            title: post.title,
+            content: post.content,
+            createdAt: post.createdAt,
+            authorName: user.name  // Assuming the name field in user_data is 'name'
+        });
+    } catch (error) {
+        console.error('Error fetching post or user data:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    } finally {
+        client.close();
+    }
+});
+
+//Real time search handling]
+app.get('/search-realtime', async (req, res) => {
+  const client = new MongoClient(url);
+  const query = req.query.q || '';  // Get the query parameter from the URL
+  console.log('Received search query:', query);  // Debug log to verify query
+  try {
+      await client.connect();
+      const db = client.db(dbName);
+      const postsCollection = db.collection("posts");
+        // Sanitize the query input and perform the search
+        const sanitizedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const posts = await postsCollection.find({ title: new RegExp(sanitizedQuery, 'i'), approved : true }).limit(10).toArray();
+        res.json(posts);  // Send the search results back to the client
+  } catch (err) {
+      res.status(500).json({ error: 'Internal server error' });
+  }finally{
+    client.close();
+  }
+});
 
 
+// Route to approve a post
+app.post('/approve-post', async (req, res) => {
+  
+  const client = new MongoClient(url);
+  const postid = req.query.id;
+
+  if (!postid) {
+    return res.status(400).json({ error: 'Post ID is required' });
+  }
+
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const postsCollection = db.collection('posts');
+
+    // Check if postid is a valid ObjectId
+    if (!ObjectId.isValid(postid)) {
+      return res.status(400).json({ error: 'Invalid Post ID' });
+    }
+
+    const result = await postsCollection.updateOne(
+      { _id: new ObjectId(postid) },
+      { $set: { approved: true } }
+    );
+
+    if (result.matchedCount > 0) {
+      res.status(200).json({ message: "Post approved successfully" });
+    } else {
+      res.status(404).json({ message: "Post not found" });
+    }
+  } catch (err) {
+    console.error('Error approving post:', err);
+    res.status(500).json({ error: 'Internal server error', details: err.message });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -1,0 +1,155 @@
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #E9F1FA;
+    border-bottom: 2px solid #ddd;
+    margin-top: 30px;
+}
+
+.info-item {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #E9F1FA;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 15px #1e395b;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.info-item h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.info-item p {
+    font-size: 1.2em;
+}
+
+.info-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-form {
+    padding: 20px;
+    text-align: center;
+    border-radius: 30px;
+    background-color: #E9F1FA;
+    box-shadow: 2px 2px 15px #1e395b;
+    margin-top: 30px;
+    width: 60%;
+}
+
+.contact-form h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.contact-form form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #E9F1FA;
+    box-shadow: 2px 2px 15px #1e395b;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+.footer2 {
+    background-color: #1e395b;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+.image-what{
+    width: 170px;
+}
+
+
+
+
+/*Small devices (phones, less than 576px)*/
+@media (max-width: 575px) {
+    .contact-info{
+        margin-top: 0px;
+    }
+    .contact-form{
+        width:85%;
+    }
+    .contact-form h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+    
+.contact-form label {
+    display: block;
+    font-size: 9px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.info-item h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.info-item p {
+    font-size: 9px;
+}
+
+.info-item a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 9;
+}
+
+
+.contact-form input,
+.contact-form textarea {
+    font-size: 9px;
+}
+.operating-time{
+    font-size: 9px;
+}
+.image-what{
+    width: 100px
+}
+}

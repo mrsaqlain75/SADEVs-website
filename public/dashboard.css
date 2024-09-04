@@ -38,6 +38,12 @@ li {
     font-weight: bold;
     color: #E9F1FA;
 }
+li a{
+    color: white; 
+    text-decoration: none;
+    display: block;
+    width:100%;
+}
 
 li:hover {
     background-color: #00abe4;

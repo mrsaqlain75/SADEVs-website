@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index-styles.css">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <div class="pre-header">
+        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+    </div>
+    <header>
+        <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="writeearn.html">Write & Earn</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="focus"><a style="background-color: #00abe4;" href="signin.html">Sign In</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </header>
+
+
+
+      
+    <section class="contact-info">
+        <div class="info-item">
+            <h2>Email Us</h2>
+            <p><a href="mailto:saqlain9696382@gmail.com" target="_blank">saqlain9696382@gmail.com</a></p>
+        </div>
+        <div class="info-item">
+            <h2>WhatsApp Us</h2>
+            <a  aria-label="Chat on WhatsApp" href="https://wa.me/923275857692"> <img class="image-what" alt="Chat on WhatsApp" src="ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.png" />
+            </a>
+        </div>
+        <div class="info-item">
+            <h2>Visit Us</h2>
+            <p>Kashghar College of ICT Chitral, Pakistan</p>
+        </div>
+        <div class="info-item">
+            <h2>Follow Us</h2>
+            <p>
+                <a href="https://www.facebook.com/fb.saqlain.75">Facebook</a> | 
+                <a href="https://www.linkedin.com/in/saqlain-amin-99206b260?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a> | 
+                <a href="https://www.instagram.com/saqlainsta?igsh=MXJhcmF3OTY1cTd0aA==">Instagram</a>
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-form">
+        <h2>Send Us a Message</h2>
+        <form action="#" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="6" placeholder="Your detailed message" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    <section class="operating-time" style="margin-top: 20px; color: #1e395b;">
+        <p style="text-align: center;"><span style="text-decoration: underline; font-weight: bold;">Operating Hours</span> <br> Monday to Friday <br> 9:00 AM - 5:00 PM</p>
+    </section>
+
+
+                
+    <div class="footer">
+        <div class="col col1">
+            <p>CONTENT</p>
+            <a href="">IT & Tech</a>
+            <a href="">News</a>
+            <a href="">Write & Earn</a>
+            <a href="">How to use?</a>
+            <a href="">FAQs</a>
+        </div>
+        <div class="col col2">
+            <p>SERVICES</p>
+            <a href="">Free Articles Publishing</a>
+            <a href="">Website Development</a>
+            <a href="">Mobile App Development</a>
+            <a href="">Video Editing</a>
+            <a href="">Online Courses</a>
+            <a href="">Graphic Designing</a>
+            <a href="">Get a Tutor</a>
+            <a href="">Counseling</a>
+        </div>
+        <div class="col col3">
+            <p>CONTACTS</p>
+            <a href="">Address: Chitral Town, Lower Chitral</a>
+            <a href="">KPK, Pakistan</a>
+            <a href="">Contact No. +92375857692</a>
+            <a href="">Contact Us</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Site Developer</a>
+            <a href="">About Us</a>
+        </div>
+        <div class="col col4">
+            <p>SOCIAL LINKS</p>
+            <a href=""><i class="fa-brands fa-facebook"><span> Facebook</span></i></a>
+            <a href=""><i class="fa-brands fa-youtube"><span> YouTube</span></i></a>
+            <a href=""><i class="fa-brands fa-whatsapp"><span> Whatsapp</span></i></a>
+            <a href=""><i class="fa-brands fa-instagram"><span> Instagram</span></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"><span> X-Twitter</span></i></a>
+            <a href=""><i class="fa-solid fa-envelope"><span> GMail</span></i></a>
+            <a href=""><i class="fa-brands fa-github"><span> GitHub</span></i></a>
+        </div>
+    </div>
+    <div class="footer2">
+        <span>&copy; 2024 SADEVz. All rights reserved.</span>
+    </div>
+
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.menu-btn');
+            const menu = document.querySelector('.menu');
+            
+            menuBtn.addEventListener('click', function() {
+                menu.classList.toggle('active');
+            });
+        });
+    </script>
+    
+</body>
+</html>

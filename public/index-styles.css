@@ -105,7 +105,6 @@ header .dropdown:hover .dropdown-content {
 
 /* Hero Section Starts Here  */
 .hero-section{
-    height:260px;
     display:flex;
     flex-direction: column;
     margin-top: 3vh;
@@ -122,7 +121,6 @@ header .dropdown:hover .dropdown-content {
 #search-text{
     font-weight: bold;
     color:#1e395b;
-    
 }
 #search-input{
     width: 60vw;
@@ -135,35 +133,29 @@ header .dropdown:hover .dropdown-content {
     border-radius: 5px;
     background-color: #E9F1FA;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
 }
-#search-btn{
-    width:10vw;
-    height:40px;
-    margin-top: 20px;
-    background-color: #00abe4;
-    border:none;
-    border-radius:5px;
-    color:#E9F1FA;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    font-size: 1.5vw;
-    transition: background-color 0.3s;
-    transition: color 0.3s;
-    box-shadow: 2px 2px 20px #00abe4;
-}
-#search-btn:hover{
-    background:#E9F1FA;
-    color:#00abe4;
-    border:3px solid #00abe4;
-}
-
 #img-service{
     width: 95%;
     box-shadow: 2px 2px 16px #00abe4;
     margin-top: -30px;
+}
+.home-posts{
+    margin-top: 30px;
+    width: 80%;
+    display:flex;
+    flex-direction: column;
+}
+.home-posts h3{
+    color:#1e395b;
+    font-weight: bold;
+    font-size: 24px;
+}
+.home-posts a{
+    text-decoration: underline;
+    color:#00abe4;
+    font-weight: bold;
+
 }
 
 /* Services card starts here...*/
@@ -409,20 +401,11 @@ header .dropdown:hover .dropdown-content {
     color:#E9F1FA;
 }
 
-
-
-
-
-
-
 /* Extra large devices (large desktops, less than 1200px) */
 @media (max-width: 1199px) {
 
     body{
         font-size: 11px;
-    }
-    .hero-section{
-        height:250px;
     }
     .team{
         width:50%;
@@ -442,9 +425,6 @@ header .dropdown:hover .dropdown-content {
         float:none;
         display:block;
         margin:auto;
-    }
-    .hero-section{
-        height:190px;
     }
     #search-input{
         height: 40px;
@@ -605,7 +585,6 @@ header .dropdown:hover .dropdown-content {
     }
     .hero-section{
         margin-top: 10px;
-        height:120px;
     }
     #search-btn{
         width:70px;
