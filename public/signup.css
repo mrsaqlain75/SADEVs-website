@@ -5,7 +5,6 @@
     --white: #11253d;
     --gray: #efefef;
     --gray-2: #00abe4;
-
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
@@ -107,7 +106,32 @@ body{
     text-decoration: underline;
   }
 
-
+  
+  .verification-section .input-box{
+    height: 52px;
+    margin: 18px 0;
+  }
+  .verification-section .input-box input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    padding: 15px 15px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #1e395b;
+    border: 1.5px solid #C7BEBE;
+    border-bottom-width: 2.5px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  .verification-section .button input{
+    color: #fff;
+    letter-spacing: 1px;
+    border: none;
+    background: #00abe4;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
 
 

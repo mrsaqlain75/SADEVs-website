@@ -22,15 +22,18 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="pre-header">
-        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+        <p>This website is under-development. Please support us with your precious <a href="">DONATIONS</a></p>
     </div>
     <header>
-      <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
-      <div class="menu-btn">
+        <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <div class="menu-btn">
             <i id="hamburger" class="fas fa-bars"></i>
         </div>
         <ul class="menu">
@@ -43,78 +46,77 @@
         </ul>
     </header>
     <div class="wrapper">
-        <h2>Registration</h2>
+        <h2 id="reg-h1">Registration</h2>
         <form id="signup_form">
-          <div class="input-box">
-            <input type="text" id="name" placeholder="Enter your name" required>
-            <span id="name-error" class="error-message"></span>
-          </div>
-          <div class="input-box">
-            <input type="text" id="email" placeholder="Enter your email" required>
-            <span id="email-error" class="error-message"></span>
-          </div>
-          <div class="input-box">
-            <input type="password" id="password" placeholder="Create password" required>
-            <i class="fas fa-eye toggle-password" id="toggle-password"></i>
-            <span id="password-error" class="error-message"></span>
-          </div>
-          <div class="input-box">
-            <input type="password" id="confirm-password" placeholder="Confirm password" required>
-            <i class="fas fa-eye toggle-password" id="toggle-confirm-password"></i>
-            <span id="confirm-password-error" class="error-message"></span>
-          </div>
-          <div class="policy">
-            <input type="checkbox" id="terms-cond-box">
-            <h3>I accept all terms & condition</h3>
-          </div>
-          <div class="input-box button">
-            <input type="submit" id="signup" value="Register Now">
-          </div>
-          <div class="text">
-            <h3>Already have an account? <a href="Signin.html">Login now</a></h3>
-          </div>
+            <div class="input-box">
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <span id="name-error" class="error-message"></span>
+            </div>
+            <div class="input-box">
+                <input type="text" id="email" placeholder="Enter your email" required>
+                <span id="email-error" class="error-message"></span>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Create password" required>
+                <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+                <span id="password-error" class="error-message"></span>
+            </div>
+            <div class="input-box">
+                <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                <i class="fas fa-eye toggle-password" id="toggle-confirm-password"></i>
+                <span id="confirm-password-error" class="error-message"></span>
+            </div>
+            <div class="policy">
+                <input type="checkbox" id="terms-cond-box">
+                <h3>I accept all terms & conditions</h3>
+            </div>
+            <div class="input-box button">
+                <input type="submit" id="signup" value="Register Now">
+            </div>
+            <div class="text">
+                <h3>Already have an account? <a href="signin.html">Login now</a></h3>
+            </div>
         </form>
-      </div>
 
-      <script>
+        <!-- Verification Code Input -->
+        <div id="verification-section" class="hidden verification-section">
+            <h2>Email Verification</h2>
+            <div class="input-box">
+                <input type="text" id="verification-code" placeholder="Enter verification code">
+                <span id="code-error" class="error-message"></span>
+            </div>
+            <div class="input-box button">
+                <input type="button" id="verify-code" value="Verify Code">
+            </div>
+        </div>
+    </div>
+
+    <script>
+      var name; 
+      var email; 
+      var pass; 
+      var cpass; 
+      var terms;
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.querySelector('.menu-btn');
             const menu = document.querySelector('.menu');
-            
             menuBtn.addEventListener('click', function() {
                 menu.classList.toggle('active');
             });
         });
 
-        async function checkEmailExists(email) {
-          console.log("Checking if email exists:", email); // Debug log
-          const response = await fetch('/check-email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email })
-          });
-
-          const result = await response.json();
-          console.log("Email exists check result:", result); // Debug log
-          return result.exists;
-        }
-
         document.getElementById("signup_form").addEventListener('submit', async function(event){
-          event.preventDefault();
-          console.log("Signup form submitted"); // Debug log
-          
-          // Get values from input fields
-          const name = document.getElementById('name').value;
-          const email = document.getElementById('email').value;
-          const pass = document.getElementById('password').value;
-          const cpass = document.getElementById('confirm-password').value;
-          const terms = document.getElementById('terms-cond-box').checked;
+            event.preventDefault();
 
-          // Validation
-          let isValid = true;
-          if (name.trim() === '') {
+            name = document.getElementById('name').value;
+            email = document.getElementById('email').value;
+            pass = document.getElementById('password').value;
+            cpass = document.getElementById('confirm-password').value;
+            terms = document.getElementById('terms-cond-box').checked;
+
+            let isValid = true;
+            await function(){
+            if (name.trim() === '') {
             document.getElementById('name-error').textContent = 'Name is required';
             isValid = false;
           } else {
@@ -125,7 +127,7 @@
             document.getElementById('email-error').textContent = 'Email is required';
             isValid = false;
           } else {
-            const emailExists = await checkEmailExists(email);
+            const emailExists = checkEmailExists(email);
             if (emailExists) {
               document.getElementById('email-error').textContent = 'Email already exists';
               isValid = false;
@@ -155,14 +157,56 @@
             alert('Please accept the terms and conditions');
             isValid = false;
           }
+        }
 
-          if (!isValid) {
-            return;
-          }
+          if (!isValid) return;
 
-          // Submit form if valid
-          try {
-            const response = await fetch('/save', {
+          async function checkEmailExists(email) {
+          console.log("Checking if email exists:", email); // Debug log
+          const response = await fetch('/check-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const result = await response.json();
+          console.log("Email exists check result:", result); // Debug log
+          return result.exists;
+        }
+
+            // Send the email confirmation code
+            const response = await fetch('/send-verification-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                // Hide the signup form, show the verification form
+                document.getElementById('signup_form').classList.add('hidden');
+                document.getElementById('verification-section').classList.remove('hidden');
+            } else {
+                alert(result.message);
+            }
+        });
+
+        document.getElementById("verify-code").addEventListener('click', async function() {
+            const code = document.getElementById('verification-code').value;
+            const email = document.getElementById('email').value;
+
+            const response = await fetch('/verify-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, code })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                // Proceed to saving the user
+                const response = await fetch('/save', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -176,16 +220,21 @@
             if (response.ok) {
               alert(result.message);
               document.getElementById('signup_form').reset();
-              window.location.href="signin.html";
             } else {
               alert(result.message);
             }
-          } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-          }
-        });
+          
 
+                const saveResult = await signupResponse.json();
+                if (saveResult.success) {
+                    alert('Account created successfully!');
+                } else {
+                    alert('Error saving user data');
+                }
+              }
+              
+            
+        });
         // Toggle password visibility
         const togglePassword = document.getElementById('toggle-password');
         const passwordField = document.getElementById('password');
@@ -206,6 +255,7 @@
           this.classList.toggle('fa-eye-slash');
         });
 
+        window.location.href = "signin.html";
       </script>
 </body>
 </html>

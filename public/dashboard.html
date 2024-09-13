@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="menu">
-        <a href="index.html"><img style="width:200px; padding:10px; float:left;" src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <a href="index.html"><img style="width:200px; padding:10px; float:left;" src="Images/sadevs-logo-white.png" alt="company-logo"></a>
         <ul>
             <li onclick="fetchUserData()"><a href="#">Users</a></li>
             <li onclick="fetchPostData()"><a href="#">Posts</a></li>
@@ -152,10 +152,11 @@ async function fetchPostData() {
                 <thead>
                     <tr class="heading-row">
                         <td>Post Id</td>
+                        <td>Post Title</td>
                         <td>Email</td>
                         <td>Content</td>
                         <td>Date Creation</td>
-                        <td>Likes</td>
+                        <td>Views</td>
                         <td>Status</td>
                         <td>Action</td>
                     </tr>
@@ -190,6 +191,10 @@ async function fetchPostData() {
             nameCell.textContent = post._id || 'N/A';
             row.appendChild(nameCell);
 
+            const titleCell = document.createElement('td');
+            titleCell.textContent = post.title || 'N/A';
+            row.appendChild(titleCell);
+
             const emailCell = document.createElement('td');
             emailCell.textContent = post.authorEmail || 'N/A';
             row.appendChild(emailCell);
@@ -203,7 +208,7 @@ async function fetchPostData() {
             row.appendChild(dobCell);
 
             const genderCell = document.createElement('td');
-            genderCell.textContent = post.likes || 'N/A';
+            genderCell.textContent = post.views || 'N/A';
             row.appendChild(genderCell);
 
             const status = document.createElement('td');

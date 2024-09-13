@@ -135,6 +135,26 @@ header .dropdown:hover .dropdown-content {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
+.search-results{
+    display: none;
+    width: 60vw;
+    background-color: #1e395b;
+    margin-top: 0;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 5px 20px;
+}
+.search-results a{
+    text-decoration: none;
+    color: #E9F1FA;
+    font-weight: bold;
+    border-bottom: 1px solid grey;
+    display:block;
+    padding:5px;
+}
+.search-results a:hover{
+    border-bottom: 2px solid #E9F1FA;
+}
 #img-service{
     width: 95%;
     box-shadow: 2px 2px 16px #00abe4;
@@ -401,6 +421,9 @@ header .dropdown:hover .dropdown-content {
     color:#E9F1FA;
 }
 
+
+
+
 /* Extra large devices (large desktops, less than 1200px) */
 @media (max-width: 1199px) {
 
@@ -429,6 +452,9 @@ header .dropdown:hover .dropdown-content {
     #search-input{
         height: 40px;
         font-size: 16px;
+        width:70%;
+    }
+    .search-results{
         width:70%;
     }
     #search-btn{
@@ -553,10 +579,6 @@ header .dropdown:hover .dropdown-content {
     .hero-section{
         margin-top:10px;
     }
-    #search-btn{
-        width:70px;
-        height:30px;
-    }
     #img-service{
         margin-top: 10px;
     }
@@ -566,16 +588,17 @@ header .dropdown:hover .dropdown-content {
 /*Small devices (phones, less than 576px)*/
 @media (max-width: 575px) {
     #hamburger{
-        font-size: 22px;
+        font-size: 30px;
     }
     .menu{
-        font-size: 10px;
+        font-size: 14px;
+        display:flex;
     }
     header{
         height:12vh;
     }
     body{
-        font-size: 5px;
+        font-size: 14px;
     }
     .pre-header p{
         font-size: 8px;
@@ -585,10 +608,6 @@ header .dropdown:hover .dropdown-content {
     }
     .hero-section{
         margin-top: 10px;
-    }
-    #search-btn{
-        width:70px;
-        height:30px;
     }
     #img-service{
         margin-top: 10px;
@@ -627,6 +646,7 @@ header .dropdown:hover .dropdown-content {
     }
     .team-card{
         margin-top:20px;
+
     }
     #img-career{
         margin-top:20px;
@@ -638,10 +658,11 @@ header .dropdown:hover .dropdown-content {
         padding-top:30px;
     }
     #search-input{
-        font-size: 12px;
+        font-size: 15px;
     }
     .team-card{
-        height:200px;
+        height:183px;
+
     }
     .desc .member-name{
         font-size: 30px;
@@ -650,5 +671,8 @@ header .dropdown:hover .dropdown-content {
     .desc .member-des{
         margin-top:5px;
         font-size: 15px;
+    }
+    #user-profile{
+        order:1;
     }
 }

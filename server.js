@@ -7,6 +7,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 
 const saltRounds = 10; 
 const app = express();
@@ -17,6 +18,9 @@ const dbName = 'SADEVS_DB';
 const collectionName = 'user_data';
 const postsCollectionName = 'posts';
 
+
+
+let verificationCodes = {}; // To store email and the verification code pairs
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -35,6 +39,8 @@ app.use(session({
   cookie: { secure: false } // Set to true if using HTTPS
 }));
 
+
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -49,6 +55,55 @@ const storagePost = multer.diskStorage({
   }
 });
 const uploadPost = multer({ storage: storagePost });
+
+// Route to send verification code
+app.post('/send-verification-code', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Generate a random 6-digit verification code
+  const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Storing the code along with the email
+  verificationCodes[email] = verificationCode;
+
+  try {
+      // Setting up Nodemailer
+      const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+              user: 'saqlainamin646@gmail.com', 
+              pass: 'kthh lyjh jauk yjgo'
+          }
+      });
+
+      // Sending the email
+      await transporter.sendMail({
+          from: 'saqlainamin646@gmail.com', 
+          to: email,
+          subject: 'Your Verification Code on SADEVz.com',
+          text: `Hello ${name},\n\nYour verification code is: ${verificationCode}\n\nPlease enter this code to verify your account.`
+      });
+
+      res.json({ success: true, message: 'Verification code sent to email.' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error sending email.' });
+  }
+});
+
+// Route to verify the code
+app.post('/verify-code', (req, res) => {
+  const { email, code } = req.body;
+
+  if (verificationCodes[email] === code) {
+      // Code matches, proceed with signup
+      delete verificationCodes[email]; // Clear the stored code after verification
+      res.json({ success: true });
+  } else {
+      res.status(400).json({ success: false, message: 'Invalid verification code.' });
+  }
+});
+
 
 
 // Handle post submissions
@@ -69,7 +124,8 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
           images: imagePaths,
           authorEmail: req.session.email,
           createdAt: new Date(),
-          likes: 0,
+          views: 0,
+          viewedBy: [],
           approved: false
       };
 
@@ -499,6 +555,94 @@ app.post('/approve-post', async (req, res) => {
   }
 });
 
+// Helper function to get the user's IP address
+function getUserIp(req) {
+  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  if (ip === '::1') {
+    ip = '127.0.0.1';
+  }
+  return ip;
+}
+
+// Route to get a specific post by ID and update views
+app.get('/get-views', async (req, res) => {
+  const client = new MongoClient(url );
+  const postId = req.query.id;
+
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("posts");
+    const userIp = getUserIp(req); // Get the user's IP
+
+    // Find the post by ID
+    const post = await collection.findOne({ _id: new ObjectId(postId) });
+
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+
+    // Check if the IP is already in the viewedBy array
+    if (!post.viewedBy || !post.viewedBy.includes(userIp)) {
+      // If not, increment the views and add the IP to viewedBy
+      await collection.updateOne(
+        { _id: new ObjectId(postId) },
+        {
+          $inc: { views: 1 },          // Increment view count by 1
+          $push: { viewedBy: userIp }  // Add the IP to the viewedBy array
+        }
+      );
+    }
+
+    // Send the updated post back to the client
+    const updatedPost = await collection.findOne({ _id: new ObjectId(postId) });
+    res.json(updatedPost);
+
+  } catch (error) {
+    console.log("Error updating views",error);
+    res.status(500).send('Server error');
+  }
+client.close();
+});
+
+// Assuming you have already connected to the MongoDB client and the posts collection
+
+async function getTopPosts(req, res) {
+  try {
+    const client = new MongoClient(url);
+    const db = client.db(dbName);
+    const postsCollection = db.collection('posts'); 
+    // Find the top 10 posts sorted by views in descending order
+    const topPosts = await postsCollection
+      .find()                        // Get all documents
+      .sort({ views: -1 })            // Sort by the 'views' field in descending order
+      .limit(10)                      // Limit the results to the top 10
+      .toArray();                     // Convert the result to an array
+
+    // Send the top 10 posts as a JSON response to the client
+    res.json(topPosts);
+  } catch (error) {
+    console.error('Error fetching top posts:', error);
+    res.status(500).send('Error fetching top posts');
+  }
+}
+
+
+app.get('/top-posts', async (req, res) => {
+const client = new MongoClient(url);
+try {
+    await client.connect();
+    await getTopPosts(req, res); // Call the function defined above
+} catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+}finally{
+  client.close();
+}
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADEVs Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index-styles.css">
+    <style>
+        h1 {
+            color: #1e395b;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Step Styling */
+        .step {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        .step-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e395b;
+            margin-bottom: 10px;
+        }
+        .step-description {
+            font-size: 16px;
+            text-align: justify;
+            color: #555;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: block;
+            margin: 30px auto;
+            padding: 10px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #00abe4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #1e395b;
+        }
+        .step-description span{
+            font-weight: bold;
+            color:#1e395b;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1{
+                font-size: 20px;
+            }
+            .container {
+                padding: 10px;
+            }
+            .step {
+                padding: 15px;
+            }
+            .btn {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pre-header">
+        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+    </div>
+    <header>
+        <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="writeearn.html">Write & Earn</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon"><i class="fa-solid fa-user"></i></a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="post-article.html">Post an article</a></li>
+                <li><a href="profile.html">Your Profile</a></li>
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
+            </li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <h1>How to earn on SADEVz.com? Step-by-Step Guide</h1>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <div class="step-number">Step 1</div>
+            <div class="step-description">First of all, you have to sign up to <span>SADEVz.com</span> by clicking on the <span>Sign Up</span> button at the top right. </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step">
+            <div class="step-number">Step 2</div>
+            <div class="step-description">Next, you have to login to <span>SADEVz.com</span>.</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <div class="step-number">Step 3</div>
+            <div class="step-description">After logging in, click on the <span>Profile</span> icon at the top right and select <span>Edit Profile</span> and provide the necessary information.</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step">
+            <div class="step-number">Step 4</div>
+            <div class="step-description">After completing your profile, click on profile icon and click on <span>Post Article</span>.</div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step">
+            <div class="step-number">Step 5</div>
+            <div class="step-description">Here, you will see a text editor. You have to give an appropriate and short title to the article and then write your content inside the text editor. You can upload pictures if you want; by clicking the <span>file upload button</span> at the buttom and you can also style your content; as you do in MicroSoft Word.</div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="step">
+            <div class="step-number">Step 6</div>
+            <div class="step-description">After writing the article, revise your article before submitting it, </span>as you won't be able to modify it before 1 month</span>. (This issue will be cleared in a month, as the website is under development) </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step">
+            <div class="step-number">Step 7</div>
+            <div class="step-description">After submitting the article, your article will be up for approval which can take time <span>between 1 hour to 2 days</span>.</div>
+        </div>
+
+        
+        <!-- Step 8 -->
+        <div class="step">
+            <div class="step-number">Step 8</div>
+            <div class="step-description">After having three posts on SADEVz.com, you will get a notification within a month for <span>partnership</span>, in which you would write for SADEVz.com and based on the quality of your content and user's review, you will be paid. </div>
+        </div>
+
+        <!-- Step 9 -->
+        <div class="step">
+            <div class="step-number">Step 9</div>
+            <div class="step-description">Remember, SADEVz.com only needs <span>original content</span>. AI generated content will lead to permanent <span>blockage</span> of your account from SADEVz.com. </div>
+        </div>
+
+        <!-- Step 10 -->
+        <div class="step">
+            <div class="step-description"><span>So, let's write and earn!</span></div>
+            </div>
+
+        <!-- Button -->
+        <a href="index.html" class="btn">Get Started from Home</a>
+    </div>
+
+            
+    <div class="footer">
+        <div class="col col1">
+            <p>CONTENT</p>
+            <a href="">IT & Tech</a>
+            <a href="">News</a>
+            <a href="">Write & Earn</a>
+            <a href="">How to use?</a>
+            <a href="">FAQs</a>
+        </div>
+        <div class="col col2">
+            <p>SERVICES</p>
+            <a href="">Free Articles Publishing</a>
+            <a href="">Website Development</a>
+            <a href="">Mobile App Development</a>
+            <a href="">Video Editing</a>
+            <a href="">Online Courses</a>
+            <a href="">Graphic Designing</a>
+            <a href="">Get a Tutor</a>
+            <a href="">Counseling</a>
+        </div>
+        <div class="col col3">
+            <p>CONTACTS</p>
+            <a href="">Address: Chitral Town, Lower Chitral</a>
+            <a href="">KPK, Pakistan</a>
+            <a href="">Contact No. +92375857692</a>
+            <a href="">Contact Us</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Site Developer</a>
+            <a href="">About Us</a>
+        </div>
+        <div class="col col4">
+            <p>SOCIAL LINKS</p>
+            <a href=""><i class="fa-brands fa-facebook"><span> Facebook</span></i></a>
+            <a href=""><i class="fa-brands fa-youtube"><span> YouTube</span></i></a>
+            <a href=""><i class="fa-brands fa-whatsapp"><span> Whatsapp</span></i></a>
+            <a href=""><i class="fa-brands fa-instagram"><span> Instagram</span></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"><span> X-Twitter</span></i></a>
+            <a href=""><i class="fa-solid fa-envelope"><span> GMail</span></i></a>
+            <a href=""><i class="fa-brands fa-github"><span> GitHub</span></i></a>
+        </div>
+    </div>
+    <div class="footer2">
+        <span>Copyright © 2024 - onwards SADEVs Company. All rights reserved.</span>
+    </div>
+
+</body>
+
+<script src="log.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        menuBtn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    });
+</script>
+</html>

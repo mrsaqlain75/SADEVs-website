@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADEVs Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index-styles.css">
+    <style>
+                h2, h3 {
+            color: #1e395b;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Box Styling */
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 20px;
+            transition: transform 0.2s;
+            text-align: justify;
+        }
+        .box:hover {
+            transform: translateY(-5px);
+        }
+
+        #team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .team-member {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        .team-member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 4px solid #1e395b;
+        }
+
+        #values {
+        }
+
+        blockquote {
+            background-color: #f9f9f9;
+            border-left: 5px solid #ccc;
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-style: italic;
+        }
+        blockquote cite {
+            display: block;
+            text-align: right;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .team-member {
+                flex: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pre-header">
+        <p>This website is under-development. Please support us with you precious <a href="">DONATIONS</a></p>
+    </div>
+    <header>
+        <a href="index.html"><img src="Images/sadevs-logo.png" alt="company-logo"></a>
+        <div class="menu-btn">
+            <i id="hamburger" class="fas fa-bars"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="writeearn.html">Write & Earn</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon"><i class="fa-solid fa-user"></i></a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="post-article.html">Post an article</a></li>
+                <li><a href="profile.html">Your Profile</a></li>
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
+            </li>
+        </ul>
+    </header>
+
+
+
+    <div class="container">
+        <!-- Introduction Section -->
+        <div class="box">
+            <h2>About Us</h2>
+            <p> 
+                Our company was founded on June 5th, 2024, with the aim of creating financial opportunities for talented students and individuals who are free at home. The idea for this company came to life when I started looking for websites where I could write articles on various educational topics and earn money. Realizing the need for such a platform, I decided to take matters into my own hands. From my bedroom, I started this project, driven by the belief that others could benefit from the same opportunities. Today, our platform empowers individuals to showcase their skills and achieve financial independence through writing.</p>
+        </div>
+
+        <!-- Mission Statement -->
+        <div class="box" id="mission">
+            <h3>Our Mission</h3>
+            <p>Our mission is to expand this website globally, providing a platform where anyone with knowledge and expertise can share their insights and help others benefit. We aim to empower individuals who are at home to contribute valuable content, fostering a community of shared learning. Additionally, we are committed to building a robust software development environment that addresses and solves various challenges in the programming world.</p>
+        </div>
+
+        <!-- Team Introduction -->
+        <div class="box" id="team">
+            <h3>Meet Our Team</h3>
+            <div class="team-member">
+                <img src="Images/team1.jpg" alt="Team Member Name">
+                <h4>Saqlain Amin</h4>
+                <p>CEO & Founder</p>
+            </div>
+            <!-- More team members can be added here -->
+        </div>
+
+        <!-- Values and Culture -->
+        <div class="box" id="values">
+            <h3>Our Values</h3>
+            <p>We empower individuals by providing a platform for sharing knowledge and achieving financial independence. Our community-driven approach fosters global collaboration, enabling everyone to grow together. Through innovation in software development, we strive to solve real-world programming challenges and make a meaningful impact.</p>
+        </div>
+
+        <!-- Testimonials or Awards -->
+        <div class="box" id="testimonials">
+            <h3>What Our Customers Say</h3>
+            <blockquote>
+                <p>"This company changed my life! Just kidding, I am the developer ;)"</p>
+                <cite>- Saqlain Amin</cite>
+            </blockquote>
+            <!-- More testimonials can be added here -->
+        </div>
+    </div>
+
+
+            
+    <div class="footer">
+        <div class="col col1">
+            <p>CONTENT</p>
+            <a href="">IT & Tech</a>
+            <a href="">News</a>
+            <a href="">Write & Earn</a>
+            <a href="">How to use?</a>
+            <a href="">FAQs</a>
+        </div>
+        <div class="col col2">
+            <p>SERVICES</p>
+            <a href="">Free Articles Publishing</a>
+            <a href="">Website Development</a>
+            <a href="">Mobile App Development</a>
+            <a href="">Video Editing</a>
+            <a href="">Online Courses</a>
+            <a href="">Graphic Designing</a>
+            <a href="">Get a Tutor</a>
+            <a href="">Counseling</a>
+        </div>
+        <div class="col col3">
+            <p>CONTACTS</p>
+            <a href="">Address: Chitral Town, Lower Chitral</a>
+            <a href="">KPK, Pakistan</a>
+            <a href="">Contact No. +92375857692</a>
+            <a href="">Contact Us</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Site Developer</a>
+            <a href="">About Us</a>
+        </div>
+        <div class="col col4">
+            <p>SOCIAL LINKS</p>
+            <a href=""><i class="fa-brands fa-facebook"><span> Facebook</span></i></a>
+            <a href=""><i class="fa-brands fa-youtube"><span> YouTube</span></i></a>
+            <a href=""><i class="fa-brands fa-whatsapp"><span> Whatsapp</span></i></a>
+            <a href=""><i class="fa-brands fa-instagram"><span> Instagram</span></i></a>
+            <a href=""><i class="fa-brands fa-x-twitter"><span> X-Twitter</span></i></a>
+            <a href=""><i class="fa-solid fa-envelope"><span> GMail</span></i></a>
+            <a href=""><i class="fa-brands fa-github"><span> GitHub</span></i></a>
+        </div>
+    </div>
+    <div class="footer2">
+        <span>Copyright © 2024 - onwards SADEVs Company. All rights reserved.</span>
+    </div>
+
+</body>
+
+<script src="log.js"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        menuBtn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    });
+</script>
+</html>
