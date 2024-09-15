@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="signup.css">
+    <style>
+        .wrapper2{
+            display:none;
+        }
+        .wrapper3{
+          display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="pre-header">
@@ -26,8 +34,8 @@
             <li><a href="signup.html">Sign Up</a></li>
         </ul>
     </header>
-    <div class="wrapper">
-        <h2>Sign In</h2>
+    <div class="wrapper wrapper1" id="wrapper-form">
+        <h2 id="head">Sign In</h2>
         <form id = "login_form">
           <div class="input-box">
             <input type="text" id="email" placeholder="Enter your email" required>
@@ -46,7 +54,34 @@
           </div>
         </form>
       </div>
- 
+      <div class="wrapper wrapper2" id="wrapper-forgot">
+        <h2 id="head">Recover your password</h2>
+        <form id = "forget_form">
+          <div class="input-box">
+            <input type="text" id="rec-email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-box button">
+            <input type="Submit" id="rec-submit-btn" value="Send">
+          </div>
+        </form>
+      </div>
+      <div class="wrapper wrapper3" id="wrapper-verify">
+        <h2 id="head">Recover your password</h2>
+        <form id = "verify_form">
+          <div class="input-box">
+            <input type="text" id="verify-code" placeholder="Verification code" required>
+          </div>
+          <div class="input-box">
+            <input type="text" id="rec-pass" placeholder="New Password" required>
+          </div>
+          <div class="input-box">
+            <input type="text" id="rec-cpass" placeholder="Confirm Password" required>
+          </div>
+          <div class="input-box button">
+            <input type="Submit" id="rec-change-btn" value="Change">
+          </div>
+        </form>
+      </div>
 
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -99,6 +134,72 @@
         console.error("An error occurred:", error);
         window.alert("An error occurred: " + error.message);
     }
+});
+
+document.getElementById("forgot-pass").addEventListener('click', async function(){
+    document.getElementById("wrapper-form").style.display = "none";
+    document.getElementById("wrapper-forgot").style.display = "block";
+    recBtn = document.getElementById('rec-submit-btn'); 
+    recBtn.addEventListener('click', async function(){
+      const email = document.getElementById('rec-email').value;
+      const response = await fetch('/send-verification-code-for', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+      const result = await response.json();
+      if(result.success){
+            document.getElementById("wrapper-forgot").style.display = "none";
+            document.getElementById("wrapper-verify").style.display = "block"
+            document.getElementById("rec-change-btn").addEventListener('click',async function(){
+            const code = document.getElementById('verify-code').value;
+            const recPass = document.getElementById('rec-pass').value;
+            const recCpass = document.getElementById('rec-cpass').value;
+            if (recPass.trim() === '') {
+            alert("Enter you password");
+          } else {
+            if(!(recPass === recCpass)){
+              alert("Passwords are not same");
+            }
+            else{
+              
+            const response = await fetch('/verify-code-for', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, code })
+            });
+            const result = await response.json();
+            if (result.success){
+              //Code is verified, now changing the password.
+              const response = await fetch('/update-password',{
+                method : 'POST',
+                headers : {
+                  'Content-Type' : 'application/json',
+                },
+                body : JSON.stringify({email,recCpass})
+              });
+              const result = await response.json();
+              if(result.success){
+                alert("Password Updated Successfully");
+                window.location = "index.html";
+              }
+              else{
+                console.log("Error", result.message);
+              }
+            }
+            else{
+              alert("Invalid verification code");
+            }
+            
+          }
+          }
+            });    
+          }
+          else{
+            console.log("Error sending verification code");
+          }
+
+          });
 });
 
 

@@ -9,10 +9,11 @@
 }
 
 .post-title {
-    font-size: 2em;
+    font-size: 1.7em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .post-meta {
     font-size: 0.9em;
@@ -29,7 +30,14 @@
     word-wrap: break-word;
     overflow-y: scroll;
     text-align: justify;
-    padding: 10px;
+    padding-right: 15px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.post-content p{
+    font-size: 20px;
+}
+.post-content li{
+    font-size: 18px;
 }
 .post-content pre{
     background-color: #eff59b;
@@ -68,6 +76,12 @@
 @media (max-width: 575px) {
     .post-container{
         width:95%;
+    }
+    .post-content p{
+        font-size: 16px;
+    }
+    .post-content li{
+        font-size: 16px;
     }
     
 }

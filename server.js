@@ -22,6 +22,9 @@ const postsCollectionName = 'posts';
 
 let verificationCodes = {}; // To store email and the verification code pairs
 
+let verificationCodesFor = {}; // To store email and the verification code pairs -- Forgot Password
+
+
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(cors({
@@ -91,6 +94,42 @@ app.post('/send-verification-code', async (req, res) => {
   }
 });
 
+
+// Route to send verification code Forgot
+app.post('/send-verification-code-for', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Generate a random 6-digit verification code
+  const verificationCodeFor = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Storing the code along with the email
+  verificationCodesFor[email] = verificationCodeFor;
+
+  try {
+      // Setting up Nodemailer
+      const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+              user: 'saqlainamin646@gmail.com', 
+              pass: 'kthh lyjh jauk yjgo'
+          }
+      });
+
+      // Sending the email
+      await transporter.sendMail({
+          from: 'saqlainamin646@gmail.com', 
+          to: email,
+          subject: 'Your Verification Code on SADEVz.com',
+          text: `Hello ${name},\n\nYour verification code is: ${verificationCodeFor}\n\nPlease enter this code to verify your account.`
+      });
+
+      res.json({ success: true, message: 'Verification code sent to email.' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error sending email.' });
+  }
+});
+
 // Route to verify the code
 app.post('/verify-code', (req, res) => {
   const { email, code } = req.body;
@@ -102,6 +141,21 @@ app.post('/verify-code', (req, res) => {
   } else {
       res.status(400).json({ success: false, message: 'Invalid verification code.' });
   }
+
+});
+
+// Route to verify the code Forgot
+app.post('/verify-code-for', (req, res) => {
+  const { email, code } = req.body;
+
+  if (verificationCodesFor[email] === code) {
+      // Code matches, proceed with signup
+      delete verificationCodesFor[email]; // Clear the stored code after verification
+      res.json({ success: true });
+  } else {
+      res.status(400).json({ success: false, message: 'Invalid verification code.' });
+  }
+
 });
 
 
@@ -125,6 +179,8 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
           authorEmail: req.session.email,
           createdAt: new Date(),
           views: 0,
+          likes: 0,
+          likedBy: [],
           viewedBy: [],
           approved: false
       };
@@ -138,6 +194,137 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
       res.status(500).json({ message: 'An error occurred while submitting the post' });
   }
 });
+
+
+
+// Route to update a post
+app.put('/update-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
+  const { title, content, postId } = req.body;
+  const files = req.files;
+
+  const newImagePaths = files.map(file => '/postuploads/' + file.filename);
+
+  try {
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(postsCollectionName);
+
+      // Find the existing post by ID
+      const post = await collection.findOne({ _id: new ObjectId(postId) });
+
+      if (!post) {
+          return res.status(404).json({ success: false, message: 'Post not found' });
+      }
+
+      // Remove old images from the server (optional step, for cleanup)
+      if (post.images && post.images.length > 0 && newImagePaths.length > 0) {
+          post.images.forEach(imagePath => {
+              const filePath = path.join(__dirname, imagePath);
+              if (fs.existsSync(filePath)) {
+                  fs.unlinkSync(filePath); // Remove old image
+              }
+          });
+      }
+
+      // Update the post with new data and images
+      const updatedPost = {
+          title, // Update title
+          content, // Update content
+          images: newImagePaths.length > 0 ? newImagePaths : post.images, // If new images are provided, update them
+          updatedAt: new Date(),
+      };
+
+      await collection.updateOne(
+          { _id: new ObjectId(postId) },
+          { $set: updatedPost }
+      );
+
+      client.close();
+
+      res.status(200).json({ success: true, message: 'Post updated successfully' });
+  } catch (error) {
+      console.error('Error updating post:', error);
+      res.status(500).json({ success: false, message: 'An error occurred while updating the post' });
+  }
+});
+
+
+
+// Route to handle likes
+app.post('/like-post', ensureAuthenticated, async (req, res) => {
+  const postId = req.body.postId;
+  const userEmail = req.session.email;
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("posts");
+
+    // Ensure the postId is valid
+    if (!ObjectId.isValid(postId)) {
+      return res.status(400).json({ message: 'Invalid post ID' });
+    }
+
+    // Fetch the post
+    const post = await collection.findOne({ _id: new ObjectId(postId) });
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Check if the user has already liked the post
+    const hasLiked = post.likedBy && post.likedBy.includes(userEmail);
+
+    // Update the post depending on whether the user has already liked it or not
+    const update = hasLiked
+      ? { $inc: { likes: -1 }, $pull: { likedBy: userEmail } } // Remove like
+      : { $inc: { likes: 1 }, $push: { likedBy: userEmail } }; // Add like
+
+    await collection.updateOne({ _id: new ObjectId(postId) }, update);
+
+    // Send response with updated like status
+    res.json({ message: hasLiked ? 'Post unliked' : 'Post liked', liked: !hasLiked });
+    
+    client.close();
+  } catch (error) {
+    console.error('Error liking post:', error);
+    res.status(500).json({ message: 'An error occurred while liking the post' });
+  }
+});
+
+app.get('/check-like-status', ensureAuthenticated, async (req, res) => {
+  const postId = req.query.postId;
+  const userEmail = req.session.email;
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("posts");
+
+    // Ensure the postId is valid
+    if (!ObjectId.isValid(postId)) {
+      return res.status(400).json({ message: 'Invalid post ID' });
+    }
+
+    // Fetch the post
+    const post = await collection.findOne({ _id: new ObjectId(postId) });
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Check if the user has already liked the post
+    const hasLiked = post.likedBy && post.likedBy.includes(userEmail);
+
+    res.json({ liked: hasLiked});
+
+    client.close();
+  } catch (error) {
+    console.error('Error checking like status:', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
+
 
 // Route to handle image upload
 app.post('/upload', uploadPost.single('image'), (req, res) => {
@@ -185,6 +372,48 @@ app.post('/check-email', async (req, res) => {
   }
 });
 
+app.post('/update-password', async (req, res) => {
+  const { email, recCpass } = req.body; // Receive email and new password from the request body
+
+  // Check if email and password are provided
+  if (!email || !recCpass) {
+    return res.status(400).json({ success: false, message: "Email and password are required." });
+  }
+
+  try {
+    // Ensure saltRounds is defined (usually 10 or more)
+    const saltRounds = 10; 
+
+    // Hash the new password using bcrypt
+    const hashedPassword = await bcrypt.hash(recCpass, saltRounds); // recCpass is the password, saltRounds is 10
+
+    // Connect to the MongoDB client
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    // Update the user's password in the database
+    const result = await collection.updateOne(
+      { email: email }, // Find the user by their email
+      { $set: { pass: hashedPassword } } // Update the password field
+    );
+    client.close();
+
+    // If no user is found with the provided email
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ success: false, message: "User not found.", password : recCpass });
+    }
+
+    // Success message
+    res.json({ success: true, message: "Password updated successfully." });
+    
+  } catch (error) {
+    console.error("Error updating password:", error);
+    res.status(500).json({ success: false, message: "Internal server error." });
+  }
+});
+
+
 app.post('/save', async (req, res) => {
   const { name, email, pass, cpass, terms } = req.body;
 
@@ -217,7 +446,6 @@ app.post('/login', async (req, res) => {
           const isMatch = await bcrypt.compare(pass, user.pass);
           if (isMatch) {
               req.session.email = email;
-              console.log('Session set:', req.session);
               return res.json({ message: "Login Successful" });
           } else {
               return res.status(401).json({ message: "Invalid Email or Password!" });
@@ -359,7 +587,7 @@ app.get('/fetch', async (req, res) => {
   }
 });
 
-// Add this route to delete a user by ID
+// route to delete a user by ID
 app.delete('/delete/:id', async (req, res) => {
   const userId = req.params.id;
 
@@ -564,6 +792,31 @@ function getUserIp(req) {
   return ip;
 }
 
+// Route to get the likes:
+app.get('/get-likes', async (req, res) => {
+  const client = new MongoClient(url );
+  const postId = req.query.id;
+
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("posts");
+    // Find the post by ID
+    const post = await collection.findOne({ _id: new ObjectId(postId) });
+    
+    res.json(post);
+
+  } catch (error) {
+    console.log("Error retrieving",error);
+    res.status(500).send('Server error');
+  }
+client.close();
+});
+
+
+
+
+
 // Route to get a specific post by ID and update views
 app.get('/get-views', async (req, res) => {
   const client = new MongoClient(url );
@@ -614,11 +867,10 @@ async function getTopPosts(req, res) {
     const postsCollection = db.collection('posts'); 
     // Find the top 10 posts sorted by views in descending order
     const topPosts = await postsCollection
-      .find()                        // Get all documents
+      .find({approved : true})        // Get all documents
       .sort({ views: -1 })            // Sort by the 'views' field in descending order
       .limit(10)                      // Limit the results to the top 10
       .toArray();                     // Convert the result to an array
-
     // Send the top 10 posts as a JSON response to the client
     res.json(topPosts);
   } catch (error) {
@@ -639,6 +891,50 @@ try {
   client.close();
 }
 });
+
+// To change the password of user
+app.post('/change-password', async (req, res) => {
+  const { oldPass, newPass } = req.body;
+  console.log("Session email: ", req.session.email);  // Log the session email
+  try {
+    const client = new MongoClient(url);
+    await client.connect(); // Connect to MongoDB
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const user = await collection.findOne({ email: req.session.email });
+    
+    if (user) {
+      // Compare the provided old password with the stored hashed password
+      const isMatch = await bcrypt.compare(oldPass, user.pass);
+      
+      if (isMatch) {
+        // Hash the new password
+        const hashedNewPass = await bcrypt.hash(newPass, saltRounds);
+
+        // Update the password in the database
+        const result = await collection.updateOne(
+          { email: req.session.email },
+          { $set: { pass: hashedNewPass } }
+        );
+
+        await client.close(); // Close the MongoDB connection
+        
+        res.json({ success: true, message: "Password updated successfully" });
+      } else {
+        await client.close();
+        res.status(400).json({ success: false, message: "Old password is incorrect" });
+      }
+    } else {
+      await client.close();
+      res.status(404).json({ success: false, message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

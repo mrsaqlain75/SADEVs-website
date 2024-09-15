@@ -86,9 +86,10 @@
         
         <!-- Post Interaction -->
         <div class="post-interaction">
-            <span style="display:none" id="like" class="interaction-item"><i class="fa-solid fa-thumbs-up"></i> 100</span>
+            <span id="like" class="interaction-item" id="like"><i class="fa-solid fa-thumbs-up"></i> </span>
+            <span id="likes" class="interaction-item"></span>
             <span style="display: none;" class="interaction-item"><i class="fa-solid fa-comment"></i> 50</span>
-            <span class="interaction-item"><i class="fa-solid fa-eye"></i></span>
+            <span class="interaction-item" style="margin-left: 10px;"><i class="fa-solid fa-eye"></i></span>
 
             <span id="views" class="interaction-item"></span>
 
@@ -159,6 +160,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id');
 const postUrl = `${window.location.origin}/view-post.html?id=${postId}`;
 loadViews(postId);
+loadLikes(postId);
 document.addEventListener('DOMContentLoaded', function() {
     // Send the postId as a query parameter in the fetch request
 
@@ -223,7 +225,57 @@ async function loadViews(id){
 catch(error){
   console.log("Error fetching views", error);
 }
+}
 
+const likeButton = document.getElementById('like');
+
+  likeButton.addEventListener('click', async () => {
+    try {
+      const response = await fetch('/like-post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId })
+      });
+
+      const result = await response.json();
+
+      if (result.liked) {
+        likeButton.style.color = 'hotpink'; // Change color to red when liked
+        loadLikes(postId);
+      } else {
+        likeButton.style.color = ''; // Reset color when unliked
+        loadLikes(postId);
+      }
+    } catch (error) {
+      console.error('Error liking post:', error);
+    }
+  });
+
+  // Initial check to see if the user has already liked the post
+  fetch(`/check-like-status?postId=${postId}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.liked) {
+        likeButton.style.color = 'hotpink'; // Set button color to red if already liked
+        loadLikes(postId);
+      }
+    })
+    .catch(error => {
+      console.error('Error checking like status:', error);
+    });
+
+  async function loadLikes(postId){
+  const likes = document.getElementById("likes");
+  try{
+  const response = await fetch(`/get-likes?id=${postId}`);
+  const data = await response.json();
+  likes.innerText = data.likes;
+}
+catch(error){
+  console.log("Error fetching views", error);
+}
 }
 
 </script>

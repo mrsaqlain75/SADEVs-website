@@ -228,6 +228,7 @@
                 const saveResult = await signupResponse.json();
                 if (saveResult.success) {
                     alert('Account created successfully!');
+                    window.location = "signin.html";
                 } else {
                     alert('Error saving user data');
                 }
@@ -255,7 +256,6 @@
           this.classList.toggle('fa-eye-slash');
         });
 
-        window.location.href = "signin.html";
       </script>
 </body>
 </html>
