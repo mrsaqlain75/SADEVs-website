@@ -196,7 +196,6 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
 });
 
 
-
 // Route to update a post
 app.put('/update-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
   const { title, content, postId } = req.body;

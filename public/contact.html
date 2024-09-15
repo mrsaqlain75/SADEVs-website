@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In </title>
+    <title>Contact SADEVz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="contact.css">
@@ -22,8 +22,19 @@
             <li><a href="writeearn.html">Write & Earn</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="about.html">About</a></li>
-            <li class="focus"><a style="background-color: #00abe4;" href="signin.html">Sign In</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
+            <li id="login-btn" style="margin-left: auto;"><a href="signin.html">Sign In</a></li>
+            <li id="signup-btn"><a href="signup.html">Sign Up</a></li>
+            <li style="margin-left: auto; background-color: #00abe4; color:#E9F1FA" id="user-profile" style="display:none;">
+              <a href="#" id="user-icon"><i class="fa-solid fa-user"></i></a>
+              <ul id="user-dropdown" style="display:none;">
+                <li><a href="post-article.html">Post an article</a></li>
+                <li><a href="profile.html">Your Profile</a></li>
+                <li><a href="edit-profile.html">Edit Profile</a></li>
+                <li><a href="change-password.html">Change Password</a></li>
+                <li><a href="payment-methods.html">Payment Methods</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
+              </ul>
+            </li>
         </ul>
     </header>
 
@@ -123,7 +134,7 @@
         <span>&copy; 2024 SADEVz. All rights reserved.</span>
     </div>
 
-
+<script src="log.js"></script>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.querySelector('.menu-btn');

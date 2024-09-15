@@ -3,12 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    -->
+    <title>Payment Methods</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
-    <link rel="stylesheet" href="profile.css">
+    <style>        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E9F1FA;
+            color: #1e395b;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            margin-top: 20px;
+            background-color: #E9F1FA;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 10px lightgrey;
+        }
+        h2 {
+            color: #1e395b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            height: 45px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #1e395b;
+            border-radius: 5px;
+            background-color: #E9F1FA;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #00abe4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            height: 45px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #1e395b;
+        }
+    </style>
 </head>
 <body>
     <div class="pre-header">
@@ -40,26 +98,42 @@
         </ul>
     </header>
 
-
-
-<!-- Profile Section -->
-<section class="profile-section">
-    <div class="profile-header">
-        <img src="Images/user-icon.png" alt="Profile Picture" class="profile-picture">
-        <h2 class="user-name">John Doe</h2>
+    <div class="form-container">
+        <h2>Select Payment Method</h2>
+        <form id="payment-method-form">
+            <div class="form-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" name="payment-method" required>
+                    <option value="albaraka">Al Baraka Bank</option>
+                    <option value="bof">Bank Alfalah</option>
+                    <option value="bop">Bank of Punjab</option>
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="faysal">Faysal Bank</option>
+                    <option value="hbl">Habib Bank Limited (HBL)</option>
+                    <option value="jazzcash">JazzCash</option>
+                    <option value="jsb">JS Bank</option>
+                    <option value="mbL">Mobilink Bank</option>
+                    <option value="mcB">MCB Bank</option>
+                    <option value="nbp">National Bank of Pakistan (NBP)</option>
+                    <option value="pSx">Pak Oman Investment Company</option>
+                    <option value="ssc">Standard Chartered Bank</option>
+                    <option value="uBL">United Bank Limited (UBL)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="account-number">Account Number / IBAN / Easypaisa/JazzCash Number</label>
+                <input type="text" id="account-number" name="account-number" placeholder="Enter account number, IBAN or Easypaisa/JazzCash number" required>
+            </div>
+            <div class="form-group">
+                <label for="receiver-name">Registered Name of Receiver</label>
+                <input type="text" id="receiver-name" name="receiver-name" placeholder="Enter the registered name" required>
+            </div>
+            <button type="submit">Save</button>
+        </form>
     </div>
-    <div class="profile-content">
-        <h3 style="font-size:15px">Your Posts</h3>
-        <ul class="posts-list">
-            <!-- Add more posts as needed -->
-        </ul>
-    </div>
-</section>
 
-
-
-          
-    <div class="footer">
+            
+    <div class="footer" data-aos="fade-up">
         <div class="col col1">
             <p>CONTENT</p>
             <a href="">IT & Tech</a>
@@ -108,6 +182,7 @@
 
 <script src="log.js"></script>
 <script>
+
     document.addEventListener('DOMContentLoaded', function() {
         const menuBtn = document.querySelector('.menu-btn');
         const menu = document.querySelector('.menu');
@@ -117,116 +192,5 @@
         });
     });
 </script>
-<!-- Add this script to profile.html -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/get-profile-data')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to load profile data');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.querySelector('.user-name').textContent = data.name;
-                document.querySelector('.profile-picture').src = data.photo;
-            })
-            .catch(error => {
-                console.error('Error fetching profile data:', error);
-            });
-            getPost();
-            
-    
-        // Existing menu toggle code
-        const menuBtn = document.querySelector('.menu-btn');
-        const menu = document.querySelector('.menu');
-        
-        menuBtn.addEventListener('click', function() {
-            menu.classList.toggle('active');
-        });
-    });
 
-    async function getPost() {
-  try {
-    const response = await fetch('/get-posts');
-    const data = await response.json();
-
-    console.log('Raw response', data);
-
-    if (!Array.isArray(data)) {
-      // Check if the response contains the "No posts found" message
-      if (data.message === "No posts found") {
-        console.log('No posts available for this user.');
-        return;
-      }
-
-      throw new Error("Expected a list of posts");
-    }
-
-    const posts = data;
-    const postsList = document.querySelector('.posts-list');
-    postsList.innerHTML = '';  // Clear existing posts
-
-    posts.reverse();
-    posts.forEach(post => {
-      const listItem = document.createElement('li');
-      const postLink = document.createElement('a');
-      postLink.href = `/see-post.html?id=${post._id}`;
-      postLink.textContent = post.title + ' - ' + new Date(post.createdAt).toLocaleDateString();
-    
-      listItem.appendChild(postLink);   //Appending to the li
-      const deleteBtn = document.createElement("span");
-      deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-      listItem.appendChild(deleteBtn);
-
-      
-      const editBtn = document.createElement("span");
-      editBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
-      listItem.appendChild(editBtn);
-      postsList.appendChild(listItem);  //Adding it to the list
-      editBtn.addEventListener('click',function(){
-        window.location = `/edit-article.html?id=${post._id}`;
-      });
-      deleteBtn.addEventListener('click',function() {
-
-            deletePost(post._id);
-
-      });
-    });
-
-  } catch (error) {
-    console.error('Error fetching user posts:', error);
-  }
-}
-
-
-
-async function deletePost(postId) {
-    // Ask for confirmation before deleting the user
-    const confirmed = confirm("Are you sure you want to delete this post?");
-    if (!confirmed) {
-        return; // If not confirmed, do nothing
-    }
-
-    try {
-        const response = await fetch(`/delete-post/${postId}`, {
-            method: 'DELETE',
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            location.reload();
-        } else {
-            throw new Error(result.message);
-        }
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        alert('Failed to delete user. Please try again.');
-    }
-}
-
-
-
-    </script>
-    
 </html>
