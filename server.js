@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient, ObjectId } = require('mongodb');
-const bcrypt = require('bcrypt'); 
+const bcryptjs = require('bcryptjs'); 
 const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
@@ -383,8 +383,8 @@ app.post('/update-password', async (req, res) => {
     // Ensure saltRounds is defined (usually 10 or more)
     const saltRounds = 10; 
 
-    // Hash the new password using bcrypt
-    const hashedPassword = await bcrypt.hash(recCpass, saltRounds); // recCpass is the password, saltRounds is 10
+    // Hash the new password using bcryptjs
+    const hashedPassword = await bcryptjs.hash(recCpass, saltRounds); // recCpass is the password, saltRounds is 10
 
     // Connect to the MongoDB client
     const client = await MongoClient.connect(url);
@@ -421,8 +421,8 @@ app.post('/save', async (req, res) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
-    const hashedPassword = await bcrypt.hash(pass, saltRounds);
-    const hashedcPassword = await bcrypt.hash(cpass, saltRounds);
+    const hashedPassword = await bcryptjs.hash(pass, saltRounds);
+    const hashedcPassword = await bcryptjs.hash(cpass, saltRounds);
 
     const result = await collection.insertOne({ name, email, pass: hashedPassword, cpass: hashedcPassword, terms });
     client.close();
@@ -442,7 +442,7 @@ app.post('/login', async (req, res) => {
 
       const user = await collection.findOne({ email });
       if (user) {
-          const isMatch = await bcrypt.compare(pass, user.pass);
+          const isMatch = await bcryptjs.compare(pass, user.pass);
           if (isMatch) {
               req.session.email = email;
               return res.json({ message: "Login Successful" });
@@ -905,11 +905,11 @@ app.post('/change-password', async (req, res) => {
     
     if (user) {
       // Compare the provided old password with the stored hashed password
-      const isMatch = await bcrypt.compare(oldPass, user.pass);
+      const isMatch = await bcryptjs.compare(oldPass, user.pass);
       
       if (isMatch) {
         // Hash the new password
-        const hashedNewPass = await bcrypt.hash(newPass, saltRounds);
+        const hashedNewPass = await bcryptjs.hash(newPass, saltRounds);
 
         // Update the password in the database
         const result = await collection.updateOne(
