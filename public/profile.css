@@ -92,4 +92,17 @@
     .posts-list li {
         font-size: 16px;
     }
+
+    .posts-list li a {
+        width: 88%;
+        display: block;
+        text-decoration: none;
+        color: #00abe4;
+        font-size: 18px;
+    }
+    .posts-list li span {
+        display: block;
+        cursor: pointer;
+        width: 6%;
+    }
 }

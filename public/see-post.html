@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="see-post.css">
     <link rel="stylesheet" href="prism.css">
+    <link rel="stylesheet" href="toast.css">
     <style>
 .share-section{
     margin-left: 15px;
@@ -37,7 +38,11 @@
     border: none;
     border-radius: 4px;
 }
-
+.option-list{
+  position : relative;
+  width: 100px;
+  background-color: #00abe4;
+}
 
     </style>
 </head>
@@ -102,7 +107,33 @@
                     <button id="copy-link-button">Copy Link</button>
                 </div>
             </div>
+            <div class="container">
+              <span id="option" style="margin-left: 10px; position: relative;" class="interaction-item">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+              </span>
+              
+              <!-- Main menu -->
+              <ul id="menu" style="display: none;">
+                <li id="menu-item-2">Report<pre style="display: inline">           v</pre></li>
+              </ul>
+              
+              <!-- Submenu (initially hidden) -->
+              <ul id="submenu" style="display: none;">
+                <li onclick="toast('Spam')" >Spam: Irrelevant, Promotional, Repetitive</li>
+                <li onclick="toast('Hate Speech')" >Hate Speech: Voilent, Discriminative, Racism, Gender-based</li>
+                <li onclick="toast('Plagiarism')" >Plagiarism: Copied from another sourse without credit.</li>
+                <li onclick="toast('Misinfo')" >Misinformation: False or misleading information</li>
+                <li onclick="toast('Inapp Lang')" >Inappropriate Language: Includes offensive or vulgar language</li>
+                <li onclick="toast('Sexual')" >Sexually explicit content</li>
+                <li onclick="toast('Personal Info')" >Personal Information: Sensitive or private information</li>
+              </ul>
+              <!-- The actual snackbar -->
+              <div id="snackbar" style="display: none;">Some text some message..</div>
+            </div>
+            
 
+          </ul>
+      
         </div>
     </div>
 
@@ -155,6 +186,8 @@
     </div>
 
 </body>
+
+
 <script src="log.js"></script>
 <script src="prism.js"></script>
 <script>
@@ -192,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+          window.globalData = data;
             // Update the page with the post data
             document.querySelector('.post-title').textContent = data.title;
             document.querySelector('.post-author').textContent = data.authorName;
@@ -278,6 +312,76 @@ const likeButton = document.getElementById('like');
 catch(error){
   console.log("Error fetching views", error);
 }
+}
+
+//Report
+const menu = document.getElementById('menu');
+const option = document.getElementById('option');
+const submenu = document.getElementById('submenu');
+const menuItem = document.getElementById('menu-item-2'); // Menu item that opens the submenu
+
+// Toggle menu on kebab icon click
+option.addEventListener('click', function (event) {
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    submenu.style.display = 'none'; // Hide the submenu when the main menu is clicked
+    event.stopPropagation(); // Prevent click from propagating
+});
+
+// Hide menu and submenu on clicking outside of it
+document.addEventListener('click', function () {
+    menu.style.display = 'none';
+    submenu.style.display = 'none';
+});
+
+// Prevent hiding when clicking inside the menu
+menu.addEventListener('click', function (event) {
+    event.stopPropagation();
+});
+
+// Toggle submenu when clicking on specific menu item
+menuItem.addEventListener('click', function (event) {
+    submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+    event.stopPropagation(); // Prevent click from propagating
+});
+
+async function toast(type) {
+  alert(type);
+  try {
+    const response = await fetch('/submit-report', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        postId,
+        postTitle: globalData.title,
+        username: globalData.authorName,
+        type: type
+      }),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+
+      // Add the "show" class to DIV
+      x.innerText = "Thank you! Reported for review";
+      x.className = "show";
+      x.style.display = "block";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+        x.style.display = "none";
+      }, 3000);
+    } else {
+      console.log("Not reported successfully");
+      console.log("Error:", data.message);
+    }
+  } catch (e) {
+    console.log("Error reporting:", e);
+  }
 }
 
 </script>

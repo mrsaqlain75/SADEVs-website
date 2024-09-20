@@ -935,6 +935,75 @@ app.post('/change-password', async (req, res) => {
 });
 
 
+
+// Adding bank details in the database:
+app.post('/payment-methods', ensureAuthenticated, async (req, res) => {
+  const client = new MongoClient(url);
+  try {
+      await client.connect(); // Connect to MongoDB
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+      
+      const result = await collection.updateOne(
+          { email: req.session.email }, 
+          {
+              $set: {
+                  bankName: req.body.bankName,
+                  accountNumber: req.body.acc,
+                  receiverName: req.body.recName
+              }
+          },
+          { upsert: true } // Insert if not found
+      );
+      
+      if(result.modifiedCount > 0 || result.upsertedCount > 0){
+          res.status(200).json({ success: true });
+      } else {
+          res.status(404).json({ success: false, message: "No such user found" });
+      }
+  } catch(e) {
+      console.error("Error", e);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+  } finally {
+      client.close();
+  }
+});
+
+
+
+// Handle report submissions
+app.post('/submit-report', ensureAuthenticated, async (req, res) => {
+  const { postId, postTitle, username, type } = req.body;
+  const client = await MongoClient.connect(url);
+
+  try {
+    const db = client.db(dbName);
+    const collection = db.collection("reports");
+
+    const newReport = {
+      postId,
+      postTitle,
+      username,
+      type,
+      reportedBy: req.session.email, // Assuming req.session contains authenticated user's email
+      reportedAt: new Date(),
+    };
+
+    // Insert the new report into the 'reports' collection
+    await collection.insertOne(newReport);
+
+    res.status(200).json({ success: true, message: 'Report submitted successfully' });
+  } catch (error) {
+    console.error('Error submitting report:', error);
+    res.status(500).json({ success: false, message: 'An error occurred while submitting the report' });
+  } finally {
+    if (client) {
+      client.close(); // Close the MongoDB connection
+    }
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

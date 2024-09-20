@@ -128,7 +128,7 @@
                 <label for="receiver-name">Registered Name of Receiver</label>
                 <input type="text" id="receiver-name" name="receiver-name" placeholder="Enter the registered name" required>
             </div>
-            <button type="submit">Save</button>
+            <button id="submit-btn" type="submit">Save</button>
         </form>
     </div>
 
@@ -191,6 +191,42 @@
             menu.classList.toggle('active');
         });
     });
+
+    document.getElementById("submit-btn").addEventListener('click', async function(e){
+    e.preventDefault();
+    const bank = document.getElementById("payment-method");
+    const bankName = bank.options[bank.selectedIndex].text;
+    const acc = document.getElementById("account-number").value;
+    const recName = document.getElementById("receiver-name").value;
+    
+    try{
+        const response = await fetch('/payment-methods', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                bankName: bankName,
+                acc: acc,
+                recName: recName
+            }) // Convert to JSON string
+        });
+        
+        const result = await response.json();
+        
+        if(result.success){
+            alert("Bank Details Uploaded successfully");
+        } else {
+            alert("Couldn't upload bank details");
+            console.log("Server error", result.message);
+        }
+    } catch(e) {
+        console.log("Error", e);
+    }
+});
+    
+
+
 </script>
 
 </html>
