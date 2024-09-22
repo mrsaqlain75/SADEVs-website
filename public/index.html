@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="spinner.css">
     <style>
 
     </style>
@@ -51,6 +52,11 @@
     <div class="home-posts" id="homePosts">
         <h3>Suggested by SADEVz</h3>
         <ul id="top-post-list" style="margin-bottom: 50px;" class="posts-list">
+        <ul>
+            <div id="loading">
+                <div class="spinner"></div>
+            </div>
+        </ul>
         </ul>
     </div>
     
@@ -189,7 +195,9 @@
 
 async function loadTopPosts() {
         try {
-          // Fetch the top posts from the server
+            // Show the loading element
+            document.getElementById('loading').style.display = 'block';
+            // Fetch the top posts from the server
           const response = await fetch('/top-posts');
           const topPosts = await response.json();  // Parse the response as JSON
 
@@ -207,6 +215,10 @@ async function loadTopPosts() {
           });
         } catch (error) {
           console.error('Error loading top posts:', error);
+        }
+        finally{
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
         }
       }
 loadTopPosts();
