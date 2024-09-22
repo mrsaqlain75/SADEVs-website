@@ -13,7 +13,7 @@ const saltRounds = 10;
 const app = express();
 const port = process.env.PORT || 3000;
 
-const url = 'mongodb://localhost:27017';
+const url = process.env.MONGODB_URI; // MongoDB Atlas connection string
 const dbName = 'SADEVS_DB';
 const collectionName = 'user_data';
 const postsCollectionName = 'posts';
@@ -28,7 +28,7 @@ let verificationCodesFor = {}; // To store email and the verification code pairs
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(cors({
-    origin: 'http://localhost:3000', // Adjust based on your frontend origin
+    origin: 'https://sadevz-0e315364e3d1.herokuapp.com/', // Adjust based on your frontend origin
     credentials: true
 }));
 
