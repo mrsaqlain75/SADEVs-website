@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="see-post.css">
     <link rel="stylesheet" href="prism.css">
     <link rel="stylesheet" href="toast.css">
+    <link rel="stylesheet" href="spinner.css">
     <style>
 .share-section{
     margin-left: 15px;
@@ -77,6 +78,9 @@
   </header>
 
     <div class="post-container">
+      <div id="loading">
+        <div class="spinner"></div>
+    </div>
         <!-- Post Title -->
         <h1 class="post-title">Post Title Here</h1>
         
@@ -216,7 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Link copied to clipboard!');
     });
 
-
+    
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
     fetch(`/get-post-from-db?id=${postId}`)
         .then(response => {
             if (!response.ok) {
@@ -234,7 +240,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error fetching post data:', error);
+        }).finally(()=> {
+          document.getElementById('loading').style.display = 'none';
         });
+
 
 
         const like = document.getElementById("like");

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="spinner.css">
     <style>
         .error-message {
             color: red;
@@ -81,6 +82,9 @@
 
         <!-- Verification Code Input -->
         <div id="verification-section" class="hidden verification-section">
+          <div id="loading">
+            <div class="spinner"></div>
+        </div>
             <h2>Email Verification</h2>
             <div class="input-box">
                 <input type="text" id="verification-code" placeholder="Enter verification code">
@@ -177,6 +181,9 @@
           return result.exists;
         }
 
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
             // Send the email confirmation code
             const response = await fetch('/send-verification-code', {
                 method: 'POST',
@@ -185,6 +192,7 @@
             });
 
             const result = await response.json();
+            document.getElementById('loading').style.display = 'none';
             if (result.success) {
                 // Hide the signup form, show the verification form
                 document.getElementById('signup_form').classList.add('hidden');
@@ -192,12 +200,14 @@
             } else {
                 alert(result.message);
             }
+
         });
 
         document.getElementById("verify-code").addEventListener('click', async function() {
             const code = document.getElementById('verification-code').value;
             const email = document.getElementById('email').value;
-
+                // Show the loading element
+    document.getElementById('loading').style.display = 'block';
             const response = await fetch('/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -205,7 +215,12 @@
             });
 
             const result = await response.json();
+            
+            document.getElementById('loading').style.display = 'none';
             if (result.success) {
+              
+                // Show the loading element
+    document.getElementById('loading').style.display = 'block';
                 // Proceed to saving the user
                 const response = await fetch('/save', {
               method: 'POST',
@@ -225,7 +240,7 @@
               alert(result.message);
             }
           
-
+            document.getElementById('loading').style.display = 'none';
                 const saveResult = await signupResponse.json();
                 if (saveResult.success) {
                     alert('Account created successfully!');

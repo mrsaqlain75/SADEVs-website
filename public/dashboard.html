@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="spinner.css">
 </head>
 <body>
     <div class="menu">
@@ -15,6 +16,9 @@
         </ul>
     </div>
     <div class="dashboard" id="dashboard">
+        <div id="loading">
+            <div class="spinner"></div>
+        </div>
     </div>
 
     <script>
@@ -42,6 +46,9 @@ async function fetchUserData() {
             </table>
         </div>`;
     try {
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
         const response = await fetch('/fetch');
         const data = await response.json();
 
@@ -116,6 +123,10 @@ async function fetchUserData() {
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
+    finally {
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
+    }
 }
 
 
@@ -127,6 +138,9 @@ async function deleteUser(userId) {
     }
 
     try {
+        
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
         const response = await fetch(`/delete/${userId}`, {
             method: 'DELETE',
         });
@@ -269,6 +283,10 @@ if (post.approved == false) {
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
+    finally {
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
+    }
 }
 
 
@@ -280,6 +298,9 @@ async function deletePost(postId) {
     }
 
     try {
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
         const response = await fetch(`/delete-post/${postId}`, {
             method: 'DELETE',
         });
@@ -294,6 +315,9 @@ async function deletePost(postId) {
     } catch (error) {
         console.error('Error deleting user:', error);
         alert('Failed to delete user. Please try again.');
+    }finally {
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
     }
 }
 

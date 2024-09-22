@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index-styles.css">
     <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="spinner.css">
     <style>
         .wrapper2{
             display:none;
@@ -56,6 +57,9 @@
         </form>
       </div>
       <div class="wrapper wrapper2" id="wrapper-forgot">
+        <div id="loading">
+          <div class="spinner"></div>
+      </div>
         <h2 id="head">Recover your password</h2>
         <form id = "forget_form">
           <div class="input-box">
@@ -67,6 +71,9 @@
         </form>
       </div>
       <div class="wrapper wrapper3" id="wrapper-verify">
+        <div id="loading">
+          <div class="spinner"></div>
+      </div>
         <h2 id="head">Recover your password</h2>
         <form id = "verify_form">
           <div class="input-box">
@@ -103,6 +110,9 @@
     const pass = document.getElementById('pass').value;
 
     try {
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
         // Sending login request
         const response = await fetch('/login', {
             method: 'POST',
@@ -134,6 +144,9 @@
     } catch (error) {
         console.error("An error occurred:", error);
         window.alert("An error occurred: " + error.message);
+    }  finally {
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
     }
 });
 
@@ -143,12 +156,16 @@ document.getElementById("forgot-pass").addEventListener('click', async function(
     recBtn = document.getElementById('rec-submit-btn'); 
     recBtn.addEventListener('click', async function(){
       const email = document.getElementById('rec-email').value;
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
       const response = await fetch('/send-verification-code-for', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
             });
       const result = await response.json();
+      document.getElementById('loading').style.display = 'none';
       if(result.success){
             document.getElementById("wrapper-forgot").style.display = "none";
             document.getElementById("wrapper-verify").style.display = "block"
@@ -164,13 +181,18 @@ document.getElementById("forgot-pass").addEventListener('click', async function(
             }
             else{
               
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
             const response = await fetch('/verify-code-for', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, code })
             });
             const result = await response.json();
+            document.getElementById('loading').style.display = 'none';
             if (result.success){
+                  // Show the loading element
+    document.getElementById('loading').style.display = 'block';
               //Code is verified, now changing the password.
               const response = await fetch('/update-password',{
                 method : 'POST',
@@ -187,6 +209,7 @@ document.getElementById("forgot-pass").addEventListener('click', async function(
               else{
                 console.log("Error", result.message);
               }
+              document.getElementById('loading').style.display = 'none';
             }
             else{
               alert("Invalid verification code");

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="index-styles.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="prism.css">
+    <link rel="stylesheet" href="spinner.css">
     <style>
         .form-post{
             margin-top: 30px;
@@ -79,6 +80,9 @@
 
 
     <main>
+        <div id="loading">
+            <div class="spinner"></div>
+        </div>
         <h2 style="color:#1e395b; margin-top:20px; text-decoration: underline; margin-bottom: 20px; text-align:center; font-size: 30px;">Post an Article</h2>
         <input type="text" id="post-title" class="post-title-input" placeholder="Enter Title Here" required>
         <form id="post-form" class="form-post">
@@ -213,6 +217,9 @@ document.getElementById('post-form').addEventListener('submit', async function (
     }
 
     try {
+
+    // Show the loading element
+    document.getElementById('loading').style.display = 'block';
         const response = await fetch('/submit-post', {
             method: 'POST',
             body: formData
@@ -238,6 +245,9 @@ document.getElementById('post-form').addEventListener('submit', async function (
     } catch (error) {
         console.error('Error submitting article:', error);
         alert('Error occurred while posting the article.');
+    } finally {
+        // Hide the loading element
+        document.getElementById('loading').style.display = 'none';
     }
 }
 });
