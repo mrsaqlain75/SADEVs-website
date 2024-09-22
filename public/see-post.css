@@ -28,7 +28,7 @@
     line-height: 1.6;
     margin-bottom: 20px;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow: auto;
     text-align: justify;
     padding-right: 15px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
