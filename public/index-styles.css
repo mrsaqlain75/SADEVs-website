@@ -32,7 +32,7 @@ header{
     height:6.5vh;
 }
 header img{
-    width:200px;
+    width: 160px;
     padding:10px;
     float:left;
 }
@@ -228,44 +228,6 @@ header .dropdown:hover .dropdown-content {
 }
 .service:hover{
     background-color: #11253d;
-}
-
-
-
-/*Courses Card Starts here...*/
-.course-card{
-    width:95%;
-    height:55vh;
-    background-color: #1e395b;
-    border-radius: 10px;
-    display:flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 16px #1e395b;
-    justify-content: center;
-    margin-top:5vh;
-    align-items: center;
-}
-.course{
-    width: 21%;
-    height: 95%;
-    background-color: #00abe4;
-    border-radius: 30px;
-    box-shadow: 2px 2px 8px #00abe4;
-    display:flex;
-    justify-content: center;
-    align-items: center;   
-    transition: background-color 0.3s;
-}
-.course p{
-    text-align: center;
-    font-size: 3vw;
-    font-family: Century Gothic;
-    color:#E9F1FA;
-    font-weight: bold;
-    text-align: center;
-}
-.course:hover{
-    background-color: #0298ca;
 }
 
 #img-career{

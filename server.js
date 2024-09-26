@@ -13,7 +13,7 @@ const saltRounds = 10;
 const app = express();
 const port = process.env.PORT || 3000;
 
-const url = process.env.MONGODB_URI; // MongoDB Atlas connection string
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017'; // MongoDB Atlas connection string
 const dbName = 'SADEVS_DB';
 const collectionName = 'user_data';
 const postsCollectionName = 'posts';
