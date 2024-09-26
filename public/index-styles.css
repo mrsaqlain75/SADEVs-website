@@ -158,10 +158,9 @@ header .dropdown:hover .dropdown-content {
 #img-service{
     width: 95%;
     box-shadow: 2px 2px 16px #00abe4;
-    margin-top: -30px;
 }
 .home-posts{
-    margin-top: 30px;
+    margin-top: 10px;
     width: 80%;
     display:flex;
     flex-direction: column;
@@ -178,57 +177,77 @@ header .dropdown:hover .dropdown-content {
 
 }
 
-/* Services card starts here...*/
-.service-card{
-    width:95%;
-    height:55vh;
-    background-color: #00abe4;
-    margin:auto;
-    border-radius: 10px;
-    display:flex;
+/*Services*/
+.services{
+    width: 95%;
+    display: flex;
     flex-direction: column;
-    box-shadow: 2px 2px 16px #00abe4;
     justify-content: center;
-    margin-top: 5vh;
     align-items: center;
-}
+    margin-top: -20px;
+    padding: 40px;
 
-#services{
-    text-align: center;
-    font-size: 4vw;
-    font-family: Century Gothic;
-    color:#E9F1FA;
+  }
+  .service-title{
+    font-size: 50px;
+    font-family: century gothic;
     font-weight: bold;
-}
-.service-list{
-    width: 98%;
-    height: 75%;
-    display:flex;
-    justify-content: space-around;
-    margin-top: 10px;
-}
-.service{
-    width: 21%;
-    height: 95%;
-    background-color: #1e395b;
-    border-radius: 30px;
-    box-shadow: 2px 2px 8px #1e395b;
-    display:flex;
+    color:#2a4563;
+    margin: 0;
+  }
+  .service-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;   
-    transition: background-color 0.3s;
-}
-.service p{
-    text-align: center;
-    font-size: 3vw;
-    font-family: Century Gothic;
-    color:#E9F1FA;
+    align-items: center;
+  }
+  .serv{
+    width: 100%;
+    display: flex;
+    height: 100px;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon{
+    width: 20%;
+    border: 2px solid #00abe4;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #1e395b;
+    transition: font-size 0.5s ease-out;
+  }
+  .icon:hover{
+    font-size: 50px;
+  }
+  .desc{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    color: #2a4563;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    font-family: century gothic;
+    font-size: 28px;
     font-weight: bold;
-    text-align: center;
-}
-.service:hover{
-    background-color: #11253d;
-}
+    background: linear-gradient(to right, #00abe4 50%, #E9F1FA 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .5s ease-out;
+    border: 2px solid #00abe4;
+    border-left: none;
+  }
+  .desc:hover{
+    background-position: left bottom;
+    color: white;
+  }
+  
 
 #img-career{
     width: 95%;
@@ -239,19 +258,27 @@ header .dropdown:hover .dropdown-content {
 /*Careers Card Starts here...*/
 .career-card{
     width:95%;
-    height:55vh;
+    height:80vh;
     background-color: #00abe4;
     border-radius: 10px;
     display:flex;
     flex-direction: column;
     box-shadow: 2px 2px 16px #00abe4;
-    justify-content: center;
     margin-top:5vh;
     align-items: center;
 }
+.career-list{
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
 .career{
-    width: 21%;
-    height: 95%;
+    width: 45%;
+    height: 45%;
     background-color: #1e395b;
     border-radius: 30px;
     box-shadow: 2px 2px 8px #1e395b;
@@ -259,6 +286,7 @@ header .dropdown:hover .dropdown-content {
     justify-content: center;
     align-items: center;   
     transition: background-color 0.3s;
+    flex-wrap: wrap;
 }
 .career p{
     text-align: center;
@@ -573,13 +601,18 @@ header .dropdown:hover .dropdown-content {
         margin-top: 10px;
     }
     #img-service{
-        margin-top: 10px;
+        margin-top: -35px;
     }
-    #services{
+    .services{
         font-size: 35px;
+        margin-top: -30px;
     }
     .service{
         width:90%;
+        margin-top: -30;
+    }
+    .cimage{
+        margin-top: -25px;
     }
     .career{
         width:90%;
@@ -594,6 +627,25 @@ header .dropdown:hover .dropdown-content {
     .service p{
         font-size: 20px;
     }
+    .serv{
+        margin-top: 0;
+    }
+    .icon{
+        width: 30%;
+        height: 90%;
+        font-size: 22px;
+    }
+    .icon:hover{
+        font-size: 30px;
+    }
+    .desc{
+        width: 70%;
+        height: 90%;
+        font-size: 18px;
+    }
+    .home-posts{
+        margin-top: 10px;
+    }
     
     .course p{
         font-size: 20px;
@@ -606,13 +658,18 @@ header .dropdown:hover .dropdown-content {
     }
     .career-card{
         margin-top:20px;
+        height: 70vh;
+    }
+    .career{
+        height: 20%;
+        border-radius: 20px;
     }
     .team-card{
         margin-top:20px;
 
     }
     #img-career{
-        margin-top:20px;
+        margin-top:2px;
     }
     .footer{
         margin-top:20px;
