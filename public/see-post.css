@@ -33,6 +33,9 @@
     padding-right: 15px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+.post-content img{
+    max-width: 100%;
+}
 .post-content p{
     font-size: 20px;
 }
