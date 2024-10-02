@@ -42,8 +42,6 @@ app.use(session({
   cookie: { secure: true } // Set to true if using HTTPS
 }));
 
-
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
