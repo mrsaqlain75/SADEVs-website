@@ -51,14 +51,7 @@
 
     </div>
 
-        <div class="home-posts" id="homePosts">
-        <h3>Suggested by SADEVz</h3>
-        <ul id="top-post-list" class="posts-list">
-        </ul>
-        <div id="loading">
-            <div class="spinner"></div>
-        </div>
-        </div>
+
     
 
     <img id="img-service" src="Images/services3.png" alt="">
@@ -180,38 +173,6 @@
         console.error('Error fetching search results:', error);
     }
 });
-
-async function loadTopPosts() {
-        try {
-            // Show the loading element
-            document.getElementById('loading').style.display = 'block';
-            // Fetch the top posts from the server
-          const response = await fetch('/top-posts');
-          const topPosts = await response.json();  // Parse the response as JSON
-
-          // Get the UL element to display the top posts
-          const postList = document.getElementById('top-post-list');
-
-          // Loop through the posts and display them in the list
-          topPosts.forEach(post => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `<li><a href="/see-post.html?id=${post._id}">${post.title}</a></li>`;
-            postList.appendChild(listItem);
-            listItem.onclick = () => {
-            ipc.href = `/see-post.html?id=${post._id}`;
-            }
-          });
-        } catch (error) {
-          console.error('Error loading top posts:', error);
-        }
-        finally{
-        // Hide the loading element
-        document.getElementById('loading').style.display = 'none';
-        }
-      }
-loadTopPosts();
-
-
 
     document.addEventListener('DOMContentLoaded', function() {
         const menuBtn = document.querySelector('.menu-btn');

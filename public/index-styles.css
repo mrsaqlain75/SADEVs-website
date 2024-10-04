@@ -158,23 +158,7 @@ header .dropdown:hover .dropdown-content {
 #img-service{
     width: 95%;
     box-shadow: 2px 2px 16px #00abe4;
-    margin-top: 15px;
-}
-.home-posts{
-    margin-top: 10px;
-    width: 80%;
-    display:flex;
-    flex-direction: column;
-}
-.home-posts h3{
-    color:#1e395b;
-    font-weight: bold;
-    font-size: 24px;
-}
-.home-posts a{
-    text-decoration: underline;
-    color:#00abe4;
-    font-weight: bold;
+    margin-top: 25px;
 }
 
 /*Services*/
@@ -581,9 +565,8 @@ header .dropdown:hover .dropdown-content {
         font-size: 30px;
     }
     .menu{
-        font-size: 14px;
+        font-size: 10px;
         display:flex;
-        position: relative;
     }
     header{
         height:12vh;
@@ -601,11 +584,14 @@ header .dropdown:hover .dropdown-content {
         margin-top: 10px;
     }
     #img-service{
-        margin-top: -35px;
+        margin-top: 15px;
     }
     .services{
         font-size: 35px;
         margin-top: -30px;
+    }
+    .service-title{
+        font-size: 35px;
     }
     .service{
         width:90%;

@@ -728,7 +728,6 @@ app.get('/get-post-from-db', async (req, res) => {
 app.get('/search-realtime', async (req, res) => {
   const client = new MongoClient(url);
   const query = req.query.q || '';  // Get the query parameter from the URL
-  console.log('Received search query:', query);  // Debug log to verify query
   try {
       await client.connect();
       const db = client.db(dbName);
