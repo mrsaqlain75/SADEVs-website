@@ -237,19 +237,14 @@
             if (response.ok) {
               alert(result.message);
               document.getElementById('signup_form').reset();
+              window.location = "signin.html";
             } else {
               alert(result.message);
             }
           
             document.getElementById('loading').style.display = 'none';
-                const saveResult = await signupResponse.json();
-                if (saveResult.success) {
-                    alert('Account created successfully!');
-                    window.location = "signin.html";
-                } else {
-                    alert('Error saving user data');
-                }
-              }
+                
+          }
               
             
         });
