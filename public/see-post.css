@@ -34,13 +34,13 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .post-content img{
-    max-width: 100%;
+    max-width: 80%;
 }
 .post-content p{
-    font-size: 20px;
+    font-size: 17px;
 }
 .post-content li{
-    font-size: 18px;
+    font-size: 17px;
 }
 .post-content pre{
     background-color: #eff59b;

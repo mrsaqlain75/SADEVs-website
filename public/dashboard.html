@@ -16,10 +16,11 @@
             <li onclick="fetchPostData()"><a href="#">Posts</a></li>
         </ul>
     </div>
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
     <div class="dashboard" id="dashboard">
-        <div id="loading">
-            <div class="spinner"></div>
-        </div>
+
     </div>
 
     <script>
@@ -46,8 +47,8 @@ async function fetchUserData() {
                 </tbody>
             </table>
         </div>`;
-    try {
 
+        try {
     // Show the loading element
     document.getElementById('loading').style.display = 'block';
         const response = await fetch('/fetch');
