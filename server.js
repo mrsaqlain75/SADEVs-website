@@ -8,7 +8,6 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const MongoStore = require('connect-mongo');
 
 const saltRounds = 10; 
 const app = express();
@@ -157,43 +156,89 @@ app.post('/verify-code-for', (req, res) => {
 
 });
 
+// Function to update sitemap.xml dynamically
+function updateSitemap(pId, url) {
+  const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
+  
+  // Format the URL entry for the sitemap
+  const sitemapEntry = `
+  <url>
+    <loc>https://sitemap.com/see-post.html?id=${pId}&amp;${url}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
 
+  // Read the current sitemap content 
+  fs.readFile(sitemapPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading sitemap:', err);
+      return;
+    }
 
-// Handle post submissions
+    // Insert the new URL entry before the closing </urlset> tag
+    const updatedSitemap = data.replace('</urlset>', `${sitemapEntry}\n</urlset>`);
+
+    // Write the updated sitemap back to the file
+    fs.writeFile(sitemapPath, updatedSitemap, (err) => {
+      if (err) {
+        console.error('Error updating sitemap:', err);
+      } else {
+        console.log('Sitemap updated successfully!');
+      }
+    });
+  });
+}
+
+// Helper function to generate dynamic URLs
+function generateUrl(title) {
+  return title.toLowerCase()
+              .replace(/ /g, '%25')       // Replace spaces with percentage signs
+              .replace(/[^\w%]+/g, ''); // Remove non-alphanumeric characters except '%'
+}
+
+// Updated post submission route
 app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
   const { title, content } = req.body;
   const files = req.files;
 
+  // Image file paths
   const imagePaths = files.map(file => '/postuploads/' + file.filename);
 
+  // Generate dynamic URL based on the title
+  const postUrl = `title=${generateUrl(title)}`;
+
   try {
-      const client = await MongoClient.connect(url);
-      const db = client.db(dbName);
-      const collection = db.collection(postsCollectionName);
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(postsCollectionName);
 
-      const newPost = {
-          title, // Include title in the document
-          content,
-          images: imagePaths,
-          authorEmail: req.session.email,
-          createdAt: new Date(),
-          views: 0,
-          likes: 0,
-          likedBy: [],
-          viewedBy: [],
-          approved: false
-      };
+    // New post document including dynamic URL
+    const newPost = {
+      title,
+      content,
+      images: imagePaths,
+      url: postUrl, // Store the dynamic URL here
+      authorEmail: req.session.email,
+      createdAt: new Date(),
+      views: 0,
+      likes: 0,
+      likedBy: [],
+      viewedBy: [],
+      approved: false
+    };
 
-      await collection.insertOne(newPost);
+    await collection.insertOne(newPost);
 
-      client.close();
-      res.status(200).json({ message: 'Post submitted successfully' });
+    // Add new post URL to sitemap.xml
+    updateSitemap(newPost._id,postUrl);
+
+    client.close();
+    res.status(200).json({ message: 'Post submitted successfully' });
   } catch (error) {
-      console.error('Error submitting post:', error);
-      res.status(500).json({ message: 'An error occurred while submitting the post' });
+    console.error('Error submitting post:', error);
+    res.status(500).json({ message: 'An error occurred while submitting the post' });
   }
 });
-
 
 // Route to update a post
 app.put('/update-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {

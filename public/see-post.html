@@ -197,8 +197,9 @@
 <script src="prism.js"></script>
 <script>
 const urlParams = new URLSearchParams(window.location.search);
+const title = urlParams.get('title');
 const postId = urlParams.get('id');
-const postUrl = `${window.location.origin}/view-post.html?id=${postId}`;
+const postUrl = `${window.location.origin}/view-post.html?title=${title}`;
 loadViews(postId);
 loadLikes(postId);
 document.addEventListener('DOMContentLoaded', function() {

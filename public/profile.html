@@ -175,7 +175,7 @@
     posts.forEach(post => {
       const listItem = document.createElement('li');
       const postLink = document.createElement('a');
-      postLink.href = `/see-post.html?id=${post._id}`;
+      postLink.href = `/see-post.html?id=${post._id}&${post.title}`;
       postLink.textContent = post.title + ' - ' + new Date(post.createdAt).toLocaleDateString();
     
       listItem.appendChild(postLink);   //Appending to the li

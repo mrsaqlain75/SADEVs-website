@@ -163,7 +163,7 @@
         if (data.length > 0) {
             resultsContainer.style.display = 'block';
             resultsContainer.innerHTML = data.map(post => 
-                `<li><a href="/see-post.html?id=${post._id}">${post.title}</a></li>`
+                `<li><a href="/see-post.html?id=${post._id}&title=${post.title}">${post.title}</a></li>`
             ).join('');
         } else {
             resultsContainer.style.display = 'none';
