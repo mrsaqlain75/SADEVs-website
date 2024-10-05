@@ -185,6 +185,8 @@ async function fetchPostData() {
 
     
     try {
+        // Show the loading element
+        document.getElementById('loading').style.display = 'block';
         const response = await fetch('/fetch-posts-list');
         const data = await response.json();
 
