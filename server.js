@@ -203,7 +203,7 @@ function generateUrl(title) {
 // Function to push updated sitemap to GitHub and Heroku
 function pushToGitHubAndHeroku() {
   // Stage, commit, and push changes to GitHub
-  exec('git add public/sitemap.xml && git commit -m "Updated sitemap.xml" && git push', (err, stdout, stderr) => {
+  exec('git add public/sitemap.xml && git commit -m "Updated sitemap.xml" && git push origin session-branch', (err, stdout, stderr) => {
     if (err) {
       console.error('Error pushing to GitHub:', err);
       return;
