@@ -185,6 +185,7 @@ function updateSitemap(postId, postUrl) {
         console.error('Error updating sitemap:', err);
       } else {
         console.log('Sitemap updated successfully!');
+        console.log("Happy");
       }
     });
   });
