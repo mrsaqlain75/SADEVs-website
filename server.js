@@ -8,6 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const { exec } = require('child_process');
 
 const saltRounds = 10; 
 const app = express();
@@ -156,7 +157,6 @@ app.post('/verify-code-for', (req, res) => {
 
 });
 
-
 // Function to update sitemap.xml dynamically
 function updateSitemap(postId, postUrl) {
   const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
@@ -169,7 +169,7 @@ function updateSitemap(postId, postUrl) {
     <priority>0.8</priority>
   </url>`;
 
-  // Read the current sitemap content 
+  // Read the current sitemap content
   fs.readFile(sitemapPath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading sitemap:', err);
@@ -185,7 +185,9 @@ function updateSitemap(postId, postUrl) {
         console.error('Error updating sitemap:', err);
       } else {
         console.log('Sitemap updated successfully!');
-        console.log("Happy");
+
+        // Automatically push changes to GitHub and Heroku
+        pushToGitHubAndHeroku();
       }
     });
   });
@@ -194,11 +196,48 @@ function updateSitemap(postId, postUrl) {
 // Helper function to generate dynamic URLs
 function generateUrl(title) {
   return title.toLowerCase()
-              .replace(/ /g, '%20')       // Replace spaces with %20
-              .replace(/[^\w%]+/g, '');   // Remove non-alphanumeric characters except '%'
+              .replace(/ /g, '%20')      // Replace spaces with %20
+              .replace(/[^\w%]+/g, '');  // Remove non-alphanumeric characters except '%'
 }
 
-// Updated post submission route
+// Function to push updated sitemap to GitHub and Heroku
+function pushToGitHubAndHeroku() {
+  // Stage, commit, and push changes to GitHub
+  exec('git add public/sitemap.xml && git commit -m "Updated sitemap.xml" && git push', (err, stdout, stderr) => {
+    if (err) {
+      console.error('Error pushing to GitHub:', err);
+      return;
+    }
+    console.log('Pushed sitemap.xml to GitHub');
+
+    // Also push to Heroku
+    exec('git push heroku session-branch:main', (err, stdout, stderr) => {
+      if (err) {
+        console.error('Error pushing to Heroku:', err);
+        return;
+      }
+      console.log('Pushed sitemap.xml to Heroku');
+      
+      // Notify Google about sitemap update
+      pingGoogle();
+    });
+  });
+}
+
+// Function to notify Google about sitemap update
+function pingGoogle() {
+  const sitemapUrl = 'https://sadevz.com/sitemap.xml';
+  const googlePingUrl = `http://www.google.com/ping?sitemap=${sitemapUrl}`;
+
+  // Send request to Google to update the sitemap index
+  require('https').get(googlePingUrl, (res) => {
+    console.log(`Google ping status: ${res.statusCode}`);
+  }).on('error', (e) => {
+    console.error('Error pinging Google:', e);
+  });
+}
+
+// Post submission route that also updates sitemap
 app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
   const { title, content } = req.body;
   const files = req.files;
@@ -241,7 +280,6 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
     res.status(500).json({ message: 'An error occurred while submitting the post' });
   }
 });
-
 
 // Route to update a post
 app.put('/update-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
