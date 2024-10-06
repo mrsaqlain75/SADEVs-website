@@ -163,7 +163,7 @@ function updateSitemap(pId, url) {
   // Format the URL entry for the sitemap
   const sitemapEntry = `
   <url>
-    <loc>https://sitemap.com/see-post.html?id=${pId}&amp;${url}</loc>
+    <loc>https://sadevz.com/see-post.html?id=${pId}&amp;${url}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
