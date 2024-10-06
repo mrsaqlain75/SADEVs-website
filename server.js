@@ -156,14 +156,15 @@ app.post('/verify-code-for', (req, res) => {
 
 });
 
+
 // Function to update sitemap.xml dynamically
-function updateSitemap(pId, url) {
+function updateSitemap(postId, postUrl) {
   const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
-  
+
   // Format the URL entry for the sitemap
   const sitemapEntry = `
   <url>
-    <loc>https://sadevz.com/see-post.html?id=${pId}&amp;${url}</loc>
+    <loc>https://sadevz.com/see-post.html?id=${postId}&amp;${postUrl}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
@@ -192,8 +193,8 @@ function updateSitemap(pId, url) {
 // Helper function to generate dynamic URLs
 function generateUrl(title) {
   return title.toLowerCase()
-              .replace(/ /g, '%25')       // Replace spaces with percentage signs
-              .replace(/[^\w%]+/g, ''); // Remove non-alphanumeric characters except '%'
+              .replace(/ /g, '%20')       // Replace spaces with %20
+              .replace(/[^\w%]+/g, '');   // Remove non-alphanumeric characters except '%'
 }
 
 // Updated post submission route
@@ -227,10 +228,10 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
       approved: false
     };
 
-    await collection.insertOne(newPost);
+    const insertedPost = await collection.insertOne(newPost);
 
     // Add new post URL to sitemap.xml
-    updateSitemap(newPost._id,postUrl);
+    updateSitemap(insertedPost.insertedId, postUrl);
 
     client.close();
     res.status(200).json({ message: 'Post submitted successfully' });
@@ -239,6 +240,7 @@ app.post('/submit-post', ensureAuthenticated, uploadPost.array('images', 5), asy
     res.status(500).json({ message: 'An error occurred while submitting the post' });
   }
 });
+
 
 // Route to update a post
 app.put('/update-post', ensureAuthenticated, uploadPost.array('images', 5), async (req, res) => {
