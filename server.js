@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const { exec } = require('child_process');
+const exec = require('child_process').exec;
 
 const saltRounds = 10; 
 const app = express();
@@ -156,7 +156,6 @@ app.post('/verify-code-for', (req, res) => {
   }
 
 });
-
 // Function to update sitemap.xml dynamically
 function updateSitemap(postId, postUrl) {
   const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
@@ -202,25 +201,21 @@ function generateUrl(title) {
 
 // Function to push updated sitemap to GitHub and Heroku
 function pushToGitHubAndHeroku() {
-  // Stage, commit, and push changes to GitHub
-  exec('git add public/sitemap.xml && git commit -m "Updated sitemap.xml" && git push origin session-branch', (err, stdout, stderr) => {
-    if (err) {
-      console.error('Error pushing to GitHub:', err);
-      return;
-    }
-    console.log('Pushed sitemap.xml to GitHub');
+  const gitCommands = [
+    'git add public/sitemap.xml',
+    'git commit -m "Updated sitemap.xml with new post"',
+    'git push origin session-branch', // Push to GitHub's session-branch
+    'git push heroku main' // Push to Heroku's main branch
+  ];
 
-    // Also push to Heroku
-    exec('git push heroku session-branch:main', (err, stdout, stderr) => {
-      if (err) {
-        console.error('Error pushing to Heroku:', err);
-        return;
-      }
-      console.log('Pushed sitemap.xml to Heroku');
-      
-      // Notify Google about sitemap update
-      pingGoogle();
-    });
+  // Execute the commands sequentially
+  exec(gitCommands.join(' && '), (err, stdout, stderr) => {
+    if (err) {
+      console.error('Error pushing to GitHub/Heroku:', stderr);
+    } else {
+      console.log('Sitemap pushed to GitHub and Heroku:', stdout);
+      pingGoogle(); // Notify Google after pushing to both repositories
+    }
   });
 }
 
