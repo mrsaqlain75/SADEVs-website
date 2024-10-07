@@ -201,21 +201,25 @@ function generateUrl(title) {
 
 // Function to push updated sitemap to GitHub and Heroku
 function pushToGitHubAndHeroku() {
-  const gitCommands = [
-    'git add public/sitemap.xml',
-    'git commit -m "Updated sitemap.xml with new post"',
-    'git push origin session-branch', // Push to GitHub's session-branch
-    'git push heroku main' // Push to Heroku's main branch
-  ];
-
-  // Execute the commands sequentially
-  exec(gitCommands.join(' && '), (err, stdout, stderr) => {
+  // Stage, commit, and push changes to GitHub
+  exec('git add public/sitemap.xml && git commit -m "Updated sitemap.xml" && git push origin session-branch', (err, stdout, stderr) => {
     if (err) {
-      console.error('Error pushing to GitHub/Heroku:', stderr);
-    } else {
-      console.log('Sitemap pushed to GitHub and Heroku:', stdout);
-      pingGoogle(); // Notify Google after pushing to both repositories
+      console.error('Error pushing to GitHub:', err);
+      return;
     }
+    console.log('Pushed sitemap.xml to GitHub');
+
+    // Push to Heroku session-branch:main
+    exec('git push heroku session-branch:main', (err, stdout, stderr) => {
+      if (err) {
+        console.error('Error pushing to Heroku:', err);
+        return;
+      }
+      console.log('Pushed sitemap.xml to Heroku session-branch:main');
+      
+      // Notify Google about sitemap update
+      pingGoogle();
+    });
   });
 }
 
